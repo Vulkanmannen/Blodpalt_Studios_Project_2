@@ -19,7 +19,7 @@ Animation::Animation(const std::string &fileName, int timePerFrame, int numberOf
 
 Animation::~Animation() {}
 
-//
+
 void Animation::update()
 {
 	

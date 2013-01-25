@@ -88,13 +88,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Arvid.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HowToPlayMenu.cpp" />
+    <ClCompile Include="InGameMenu.cpp" />
+    <ClCompile Include="IntroScreen.cpp" />
+    <ClCompile Include="LevelMenu.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="OptionMenu.cpp" />
+    <ClCompile Include="ResourceHandler.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="Super.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Arvid.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="HowToPlayMenu.h" />
+    <ClInclude Include="InGameMenu.h" />
+    <ClInclude Include="IntroScreen.h" />
+    <ClInclude Include="LevelMenu.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MenuState.h" />
+    <ClInclude Include="OptionMenu.h" />
+    <ClInclude Include="ResourceHandler.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateManager.h" />
+    <ClInclude Include="Super.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
