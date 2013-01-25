@@ -39,9 +39,8 @@ private:
 	// /No copies
 	///////////////////////////////////////////////////////
 	LoadingState& operator=(const LoadingState& load);
-}
+};
 
 #endif
-
 
 //r_super.getStateManger().popState();
