@@ -12,7 +12,7 @@ public:
 	void update();
 	void render();
 
-	addEntity(Entity* e);
+	void addEntity(Entity* e);
 private:
 	EntityManager();
 	EntityManager(const EntityManager&);

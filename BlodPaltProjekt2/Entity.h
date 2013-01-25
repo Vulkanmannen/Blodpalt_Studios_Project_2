@@ -9,27 +9,28 @@ public:
 	enum EntityKind {ARVID, BLOMMA, BLOCK, ENEMY, MOVINGBLOCK};
 
 	Entity();
-	~Entity();
+	virtual ~Entity();
 	virtual void update() = 0;
 	virtual void render() = 0;
-	virtual void onCollision(Entity *e) = 0;
+	virtual void onCollision(Entity *e){};
 
 	// getfunktioner
-	sf::FloatRect getHitBox()const;
-	bool isActive()const;
-	sf::Vector2f getPosition()const;
-	EntityKind getEntityKind()const;
+	sf::FloatRect	getHitBox()const;
+	bool			isActive()const;
+	sf::Vector2f	getPosition()const;
+	EntityKind		getEntityKind()const;
 
 	// setfunktioner
 	void setPosition(sf::Vector2f &position);
 	void setNotActive();
 
 protected:
-	virtual sf::Sprite getSprite()const;
-	sf::FloatRect mHitBox;
-
-	bool isActive;
-	EntityKind mEntityKind;
+	virtual sf::Sprite	getSprite()const = 0;
+	
+	
+	sf::FloatRect	mHitBox;
+	EntityKind		mEntityKind;
+	bool			mIsActive;
 };
 
 #endif
