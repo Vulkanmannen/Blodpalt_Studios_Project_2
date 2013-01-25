@@ -4,8 +4,13 @@
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\System\Vector2.hpp>
+#include <SFML\System\Clock.hpp>
 
+#include "Animation.h"
 #include "Entity.h"
+#include <memory>
+
+class ResourceHandler;
 
 class Arvid : public Entity
 {
@@ -19,7 +24,15 @@ public:
 	void onCollision();
 
 private:
-	
+	Animation mIdleLeftAnimation;
+	Animation mIdleRightAnimation;
+	Animation mRunLeftAnimation;
+	Animation mRunRightAnimation;
+	Animation mJumpAnimation;
+
+	Animation* mCurrentAnimation;
+
+	sf::Clock mClock;
 };
 
 #endif

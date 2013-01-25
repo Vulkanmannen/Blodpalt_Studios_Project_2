@@ -82,21 +82,28 @@
       <Filter>Header Files</Filter>
     </ClInclude>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="Flower.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
 =======
     <ClInclude Include="LoadingState.h">
+=======
+    <ClInclude Include="OptionMenu.h">
+>>>>>>> e32a3a9d0791f9e16f13e2c16579fa36466e3598
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Block.h">
+    <ClInclude Include="ResourceHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MovingBlock.h">
+    <ClInclude Include="State.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NormalBlock.h">
+    <ClInclude Include="StateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
@@ -126,6 +133,7 @@
     <ClInclude Include="MenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="OptionMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -142,5 +150,7 @@
 >>>>>>> 3871280aee0ee664e9dc39cdaa1538bec94b5cb7
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+>>>>>>> e32a3a9d0791f9e16f13e2c16579fa36466e3598
   </ItemGroup>
 </Project>

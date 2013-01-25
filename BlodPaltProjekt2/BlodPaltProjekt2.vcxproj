@@ -122,7 +122,6 @@
 =======
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Arvid.h" />
-    <ClInclude Include="Block.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="GameState.h" />
@@ -130,11 +129,8 @@
     <ClInclude Include="InGameMenu.h" />
     <ClInclude Include="IntroScreen.h" />
     <ClInclude Include="LevelMenu.h" />
-    <ClInclude Include="LoadingState.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MenuState.h" />
-    <ClInclude Include="MovingBlock.h" />
-    <ClInclude Include="NormalBlock.h" />
     <ClInclude Include="OptionMenu.h" />
     <ClInclude Include="ResourceHandler.h" />
     <ClInclude Include="State.h" />
