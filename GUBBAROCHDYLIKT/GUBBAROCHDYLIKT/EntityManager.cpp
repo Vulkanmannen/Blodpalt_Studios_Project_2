@@ -34,6 +34,7 @@ void EntityManager::update()
 	{
 		mEntityVector[i]->update();
 	}
+	checkCollisions();
 }
 
 void EntityManager::render(sf::RenderWindow &window)
@@ -61,37 +62,45 @@ void EntityManager::checkCollisions()
 {
 	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
 	{
-		for(EntityVector::size_type j = 0; j < mEntityVector.size(); ++j)
+		for(EntityVector::size_type j = i; j < mEntityVector.size(); ++j)
 		{
-			isColliding(mEntityVector[i], mEntityVector[j]);
+			if(mEntityVector[i]->getEntityKind() == Entity::ARVID && mEntityVector[j]->getEntityKind() != Entity::ARVID)
+			{
+				ifEntitiesColliding(mEntityVector[i], mEntityVector[j]);
+			}
 		}
 	}
 }
 
-void EntityManager::isColliding(Entity *e1, Entity *e2)
+void EntityManager::ifEntitiesColliding(Entity *e1, Entity *e2)
 {
-	/*if(e1->getHitBox().intersects(e2->getHitBox()))
-	{
+	sf::FloatRect result;
+	float xDif = e1->getHitBox().left - e2->getHitBox().left;
+	float yDif = e1->getHitBox().top - e2->getHitBox().top;
 
+	if(e1->getHitBox().intersects(e2->getHitBox(), result))
+	{
+		if(result.height > result.width)
+		{
+			if(xDif > 0)
+			{
+				e1->setPosition(sf::Vector2f(e1->getHitBox().left + result.width, e1->getHitBox().top));
+			}
+			else
+			{
+				e1->setPosition(sf::Vector2f(e1->getHitBox().left - result.width, e1->getHitBox().top));
+			}
+		}
+		else
+		{
+			if(yDif > 0)
+			{
+				e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top + result.height));
+			}
+			else
+			{
+				e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top - result.height));
+			}
+		}
 	}
-
-	else if()
-	{
-	}
-
-	else if()
-	{
-	}
-
-	else if()
-	{
-	}
-
-	else if()
-	{
-	}
-
-	else if()
-	{
-	}*/
 }

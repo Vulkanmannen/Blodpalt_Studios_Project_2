@@ -8,12 +8,6 @@ Entity::Entity()
 Entity::~Entity()
 	{}
 
-
-sf::FloatRect Entity::getHitBox()const
-{
-	return mHitBox;
-}
-
 bool Entity::isActive()const
 {
 	return mIsActive;
@@ -33,4 +27,9 @@ void Entity::setPosition(sf::Vector2f &position)
 {
 	mHitBox.left = position.x;
 	mHitBox.top = position.y;
+}
+
+sf::FloatRect Entity::getHitBox()const
+{
+	return mHitBox;
 }

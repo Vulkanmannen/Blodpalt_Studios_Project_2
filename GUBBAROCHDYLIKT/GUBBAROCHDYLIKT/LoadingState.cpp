@@ -35,7 +35,7 @@ void LoadingState::loadLevel()
 		for(int j = 0; j < mLevelImage->getSize().y; ++j)
 		{
 			sf::Color color = mLevelImage->getPixel(i, j);
-			sf::Vector2f position = sf::Vector2f(i * 32, j * 32);
+			sf::Vector2f position = sf::Vector2f(i * 64, j * 64);
 
 			if(color == sf::Color(0, 0, 0, 255))
 			{

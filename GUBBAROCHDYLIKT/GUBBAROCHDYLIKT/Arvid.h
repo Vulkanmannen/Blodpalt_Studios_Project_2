@@ -25,6 +25,10 @@ public:
 
 private:
 	void move();
+	void walk();
+	void jump();
+	void jumping();
+
 
 	/*Animation mIdleLeftAnimation;
 	Animation mIdleRightAnimation;
@@ -34,9 +38,15 @@ private:
 
 	Animation* mCurrentAnimation;*/
 
-	sf::Clock mClock;
-	sf::Texture mTexture;
-	sf::Sprite mSprite;
+	sf::Vector2f	mMovementSpeed;
+	float			mRunSpeed;
+	bool			mJumping;
+	float			mJumpDecrease;
+	int				mJumpTime;
+
+	sf::Clock	mClock;
+	sf::Texture	mTexture;
+	sf::Sprite	mSprite;
 };
 
 #endif

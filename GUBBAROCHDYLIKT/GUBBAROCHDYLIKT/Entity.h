@@ -15,10 +15,10 @@ public:
 	virtual void onCollision(Entity *e){};
 
 	// getfunktioner
-	sf::FloatRect	getHitBox()const;
 	bool			isActive()const;
 	sf::Vector2f	getPosition()const;
 	EntityKind		getEntityKind()const;
+	sf::FloatRect	getHitBox()const;
 
 	// setfunktioner
 	void setPosition(sf::Vector2f &position);

@@ -30,7 +30,8 @@ private:
 	static EntityManager* sInstance;
 
 	void checkCollisions();
-	void isColliding(Entity *e1, Entity *e2);
+	void ifEntitiesColliding(Entity *e1, Entity *e2);
+
 
 };
 

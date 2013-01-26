@@ -1,8 +1,6 @@
 #include "NormalBlock.h"
 #include "ResourceHandler.h"
 
-static sf::Texture TEXTURE;
-static sf::Sprite SPRITE;
 
 NormalBlock::NormalBlock(sf::Vector2f position)
 {
@@ -11,6 +9,7 @@ NormalBlock::NormalBlock(sf::Vector2f position)
 	mTexture.loadFromFile("BLOCK.png");
 	mSprite.setTexture(mTexture);
 	mSprite.setPosition(position);
+	mHitBox = sf::FloatRect(position, sf::Vector2f(64, 64));
 }
 
 NormalBlock::~NormalBlock()
@@ -19,7 +18,7 @@ NormalBlock::~NormalBlock()
 
 void NormalBlock::update()
 {
-	SPRITE.setPosition(getPosition());
+	mSprite.setPosition(getPosition());
 }
 
 void NormalBlock::render(sf::RenderWindow &window)

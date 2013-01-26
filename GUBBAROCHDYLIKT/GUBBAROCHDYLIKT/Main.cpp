@@ -4,7 +4,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1024, 768), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Garden Gnome");
 	LoadingState loadState("MAPJEVEL.png");
 	loadState.loadLevel();
     while (window.isOpen())
@@ -15,9 +15,11 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-		EntityManager::getInstance()->update();
 		window.clear(sf::Color(255, 0, 0, 255));
+
+		EntityManager::getInstance()->update();
 		EntityManager::getInstance()->render(window);
+		
 		window.display();
     }
 
