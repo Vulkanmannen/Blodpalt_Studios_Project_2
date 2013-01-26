@@ -2,10 +2,16 @@
 #include "LoadingState.h"
 #include "EntityManager.h"
 #include <iostream>
+<<<<<<< HEAD
 #include "Entity.h"
+=======
+#include "Flower.h"
+>>>>>>> 216b2c51e9211d8e8ccca2232eef16d716d7fe73
 
 int main()
 {
+	EntityManager::getInstance()->addEntity( new Flower( sf::Vector2f(0,0), Flower::VERTICAL) );
+
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Garden Gnome");
 	window.setFramerateLimit(60);
 	sf::View view;
