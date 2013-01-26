@@ -14,11 +14,9 @@ Arvid::Arvid(sf::Vector2f &position) /*:
 { 
 	mEntityKind = ARVID;
 	setPosition(position);
-	TEXTURE.loadFromFile("GUBBJEVEL.png");
-	SPRITE.setTexture(TEXTURE);
-	mHitBox.width = SPRITE.getLocalBounds().width;
-	mHitBox.height = SPRITE.getLocalBounds().height;
-	SPRITE.setPosition(position);
+	mTexture.loadFromFile("GUBBJEVEL.png");
+	mSprite.setTexture(mTexture);
+	mSprite.setPosition(position);
 }
 
 Arvid::~Arvid(){ }
@@ -45,9 +43,9 @@ void Arvid::update()
 	SPRITE.setPosition(getPosition());
 }
 
-void Arvid::render()
+void Arvid::render(sf::RenderWindow &window)
 {
-	ResourceHandler::getInstance()->render(&SPRITE);
+	window.draw(mSprite);
 }
 
 void Arvid::onCollision()

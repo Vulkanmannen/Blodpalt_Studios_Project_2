@@ -8,9 +8,9 @@ NormalBlock::NormalBlock(sf::Vector2f position)
 {
 	setPosition(position);
 	mEntityKind = EntityKind::NORMALBLOCK;
-	TEXTURE.loadFromFile("BLOCK.png");
-	SPRITE.setTexture(TEXTURE);
-	SPRITE.setPosition(position);
+	mTexture.loadFromFile("BLOCK.png");
+	mSprite.setTexture(mTexture);
+	mSprite.setPosition(position);
 }
 
 NormalBlock::~NormalBlock()
@@ -22,7 +22,7 @@ void NormalBlock::update()
 	SPRITE.setPosition(getPosition());
 }
 
-void NormalBlock::render()
+void NormalBlock::render(sf::RenderWindow &window)
 {
-	ResourceHandler::render(&SPRITE);
+	window.draw(mSprite);
 }

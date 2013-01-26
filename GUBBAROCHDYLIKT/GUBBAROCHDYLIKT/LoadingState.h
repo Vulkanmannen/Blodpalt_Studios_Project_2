@@ -1,0 +1,52 @@
+#ifndef INCLUDED_LOADINGMANAGER
+#define INCLUDED_LOADINGMANAGER
+#include <string>
+#include <memory>
+//#include "State.h"
+
+namespace sf{
+	class Image;
+};
+class EntityManager;
+
+class LoadingState{//: public State{
+public:
+	///////////////////////////////////////////////////////
+	// /Needs a file path to the file which holds the info
+	// /telling the LoadingManager how entitys will be 
+	// /created.
+	// /LoadingManager also needs a pointer to the GameManager
+	// /to fill with the entitys.
+	///////////////////////////////////////////////////////
+	LoadingState(std::string filePath);
+	///////////////////////////////////////////////////////
+	// /No dynamic members.
+	///////////////////////////////////////////////////////
+	~LoadingState();
+	///////////////////////////////////////////////////////
+	// /Update will run the loading sequence.
+	///////////////////////////////////////////////////////
+	//void update(Super &r_super);
+	/////////////////////////////////////////////////////////
+	//// /Will not perform anything, needed due to being a
+	//// /substate of State
+	/////////////////////////////////////////////////////////
+	//void draw(Super &r_super);
+void loadLevel();
+private:
+	EntityManager* mEntityManager; //The GameState into which the level is loaded
+	///////////////////////////////////////////////////////
+	// /No copies
+	///////////////////////////////////////////////////////
+	LoadingState(const LoadingState& load);
+	///////////////////////////////////////////////////////
+	// /No copies
+	///////////////////////////////////////////////////////
+	LoadingState& operator=(const LoadingState& load);
+
+	
+
+	std::shared_ptr<sf::Image> mLevelImage;
+};
+
+#endif

@@ -19,7 +19,7 @@ public:
 	~Arvid();
 
 	void update();
-	void render();
+	void render(sf::RenderWindow &window);
 
 	void onCollision();
 
@@ -35,6 +35,8 @@ private:
 	Animation* mCurrentAnimation;*/
 
 	sf::Clock mClock;
+	sf::Texture mTexture;
+	sf::Sprite mSprite;
 };
 
 #endif

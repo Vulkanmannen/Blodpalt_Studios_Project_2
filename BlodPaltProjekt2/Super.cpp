@@ -12,9 +12,9 @@ Super* Super::getInstance()
 
 Super::Super()
 {
-	m_window.create(sf::VideoMode(1920, 1080), "Garden Gnome", sf::Style::Fullscreen);
-	m_view.setCenter(m_window.getPosition().x, m_window.getPosition().y);
-	m_view.setSize(1920, 1080);
+	m_window.create(sf::VideoMode(800, 600), "Garden Gnome"/*, sf::Style::Fullscreen*/);
+	//m_view.setCenter(m_window.getPosition().x, m_window.getPosition().y);
+	//m_view.setSize(1920, 1080);
 }
 
 

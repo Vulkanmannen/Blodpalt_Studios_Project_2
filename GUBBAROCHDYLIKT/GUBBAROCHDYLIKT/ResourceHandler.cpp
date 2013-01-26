@@ -1,5 +1,5 @@
 #include "ResourceHandler.h"
-#include "Super.h"
+//#include "Super.h"
 #include <iostream>
 
 //Skapar en instanse av klassen genom att göra denna till en Singleton
@@ -62,7 +62,7 @@ sf::Image* ResourceHandler::loadImage(const std::string &path)
 //Renderar bilderna på displayen
 void ResourceHandler::render(sf::Drawable *drawable)
 {
-	Super::getInstance()->getWindow().draw(*drawable);
+	//Super::getInstance()->getWindow().draw(*drawable);
 }
 
 /*********************	

@@ -36,11 +36,11 @@ void EntityManager::update()
 	}
 }
 
-void EntityManager::render()
+void EntityManager::render(sf::RenderWindow &window)
 {
 	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
 	{
-		mEntityVector[i]->render();
+		mEntityVector[i]->render(window);
 	}
 }
 
