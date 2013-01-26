@@ -1,24 +1,36 @@
 #include <SFML/Graphics.hpp>
+#include "Super.h"
+#include "WorldMapState.h"
+#include "IntroScreen.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "BlodPaltStudios!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+	Super* super = Super::getInstance();
+	super->getWindow();
+	super->getWindow().setVerticalSyncEnabled(true);
+	super->getWindow().setFramerateLimit(60);
 
-    while (window.isOpen())
+
+	super->getStateManager().pushState(new WordMapState());
+	super->getStateManager().pushState(new IntroScreen());    
+
+    while (super->getWindow().isOpen())
     {
         sf::Event event;
-        while (window.pollEvent(event))
+        while (super->getWindow().pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
+                super->getWindow().close();
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+		super->update();
+
+		super->draw();
+       
     }
+
+	super->getStateManager().clear();
+	delete super;
 
     return 0;
 }

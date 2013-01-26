@@ -1,11 +1,9 @@
 #include "InGameMenu.h"
 #include "Super.h"
 #include "MainMenu.h"
-#include "OptionMenu.h"
-#include <SFML\Window\Mouse.hpp>
 #include "ResourceHandler.h"
-#include "LevelMenu.h"
 
+#include <SFML\Window\Keyboard.hpp>
 
 //Constructor, running the initialization function
 InGameMenu::InGameMenu()
@@ -21,14 +19,21 @@ InGameMenu::~InGameMenu()
 
 void InGameMenu::update(Super &r_super)
 {
-	
+	if(/*RESUMEKNAPPEN BLIVIT VALD*/)
+	{
+		r_super.getStateManager().popState();
+	}
+
+	if(/*MAIN MENU BLIVIT VALD*/)
+	{
+		r_super.getStateManager().popState();
+	}
 }
 
 //Draw menu sprites on display
 void InGameMenu::draw(Super &r_super) 
 {
 	r_super.getWindow().draw(mMenuSprite);
-	r_super.getWindow().draw(mOptionSprite);
 	r_super.getWindow().draw(mReturnToMainMenuSprite);
 }
 
@@ -38,11 +43,9 @@ void InGameMenu::draw(Super &r_super)
 void InGameMenu::init()
 {
 	mMenuTexture.loadFromImage			  ( *ResourceHandler::getInstance()->loadImage(""));
-	mOptionTexture.loadFromImage		  ( *ResourceHandler::getInstance()->loadImage(""));
 	mReturnToMainMenuTexture.loadFromImage( *ResourceHandler::getInstance()->loadImage(""));
 
 
 	mMenuSprite.setTexture(mMenuTexture);
-	mOptionSprite.setTexture(mOptionTexture);
 	mReturnToMainMenuSprite.setTexture(mReturnToMainMenuTexture);
 }

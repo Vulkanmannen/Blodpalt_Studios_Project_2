@@ -60,9 +60,6 @@
     <ClInclude Include="NormalBlock.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="OptionMenu.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceHandler.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -114,9 +111,6 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="MenuState.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="OptionMenu.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="ResourceHandler.cpp">

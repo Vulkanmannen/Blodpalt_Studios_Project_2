@@ -27,7 +27,6 @@
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MovingBlock.h" />
     <ClInclude Include="NormalBlock.h" />
-    <ClInclude Include="OptionMenu.h" />
     <ClInclude Include="ResourceHandler.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
@@ -47,7 +46,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MenuState.cpp" />
-    <ClCompile Include="OptionMenu.cpp" />
     <ClCompile Include="ResourceHandler.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateManager.cpp" />

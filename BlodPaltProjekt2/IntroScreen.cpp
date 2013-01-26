@@ -21,12 +21,14 @@ void IntroScreen::update(Super &r_super)
 {
 	if(mMenuClock.getElapsedTime().asSeconds() > 10)
 	{
-
+		r_super.getStateManager().popState();
+		r_super.getStateManager().pushState(new MainMenu());
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
-
+		r_super.getStateManager().popState();
+		r_super.getStateManager().pushState(new MainMenu());
 	}
 }
 
