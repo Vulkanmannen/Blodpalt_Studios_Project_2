@@ -24,38 +24,20 @@ public:
 	void init();
 
 private:
-	void buttonAnimation(Super &r_super);
-/*	sf::Texture m_menuTexture;
-	sf::Sprite m_menuSprite;
+	sf::Texture mMenuTexture;
+	sf::Sprite  mMenuSprite;
 
-	sf::Texture m_chooseTexture;
-	sf::Texture m_optionsTexture;
-	sf::Texture m_howToPlayTexture;
-	sf::Texture m_quitTexture;
-	sf::Sprite m_chooseSprite;
-	sf::Sprite m_optionsSprite;
-	sf::Sprite m_howToPlaySprite;
-	sf::Sprite m_quitSprite;
+	sf::Texture mPlayTexture;
+	sf::Sprite  mPlaySprite;
 
-	sf::Texture m_chooseTextureHover;
-	sf::Texture m_optionsTextureHover;
-	sf::Texture m_howToPlayTextureHover;
-	sf::Texture m_quitTextureHover;
+	sf::Texture mOptionTexture;
+	sf::Sprite  mOptionSprite;
 
-	sf::Texture m_chooseTextureClick;
-	sf::Texture m_optionsTextureClick;
-	sf::Texture m_howToPlayTextureClick;
-	sf::Texture m_quitTextureClick;
+	sf::Texture mHowToPlayTexture;
+	sf::Sprite  mHowToPlaySprite;
 
-	sf::Sprite m_chooseTextRect;
-	sf::Sprite m_optionsTextRect;
-	sf::Sprite m_howToPlayTextRect;
-	sf::Sprite m_QTextRect;
-
-	sf::Texture *m_currentChooseTexture;
-	sf::Texture *m_currentOptionsTexture;
-	sf::Texture *m_currentHowToTexture;
-	sf::Texture *m_currentQuitTexture*/;
+	sf::Texture mQuitTexture;
+	sf::Sprite  mQuitSprite;
 };
 
 #endif

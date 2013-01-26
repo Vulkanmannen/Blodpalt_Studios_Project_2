@@ -42,9 +42,6 @@
     <ClInclude Include="IntroScreen.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="LevelMenu.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="LoadingState.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -105,9 +102,6 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="IntroScreen.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelMenu.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">

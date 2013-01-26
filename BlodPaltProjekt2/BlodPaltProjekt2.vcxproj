@@ -22,7 +22,6 @@
     <ClInclude Include="HowToPlayMenu.h" />
     <ClInclude Include="InGameMenu.h" />
     <ClInclude Include="IntroScreen.h" />
-    <ClInclude Include="LevelMenu.h" />
     <ClInclude Include="LoadingState.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MenuState.h" />
@@ -45,7 +44,6 @@
     <ClCompile Include="HowToPlayMenu.cpp" />
     <ClCompile Include="InGameMenu.cpp" />
     <ClCompile Include="IntroScreen.cpp" />
-    <ClCompile Include="LevelMenu.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MenuState.cpp" />
