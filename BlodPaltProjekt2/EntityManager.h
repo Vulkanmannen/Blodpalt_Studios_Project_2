@@ -13,6 +13,8 @@ public:
 	void render();
 
 	void addEntity(Entity* e);
+	void clear();
+
 private:
 	EntityManager();
 	EntityManager(const EntityManager&);

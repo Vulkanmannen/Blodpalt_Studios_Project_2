@@ -7,9 +7,6 @@
     <Filter Include="Sources">
       <UniqueIdentifier>{c875283b-d6f2-44e9-828c-9e63f1669f9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\B">
-      <UniqueIdentifier>{c3a23049-95e1-4f0b-90d1-61845ab808ea}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -78,6 +75,9 @@
     <ClInclude Include="Super.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="WorldMapState.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -135,6 +135,12 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Super.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingState.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapState.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

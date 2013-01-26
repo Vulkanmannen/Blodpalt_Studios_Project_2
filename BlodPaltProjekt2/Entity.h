@@ -25,9 +25,6 @@ public:
 	void setNotActive();
 
 protected:
-	virtual sf::Sprite	getSprite()const = 0;
-	
-	
 	sf::FloatRect	mHitBox;
 	EntityKind		mEntityKind;
 	bool			mIsActive;

@@ -2,6 +2,7 @@
 #define INCLUDED_FLOWER
 
 #include "Entity.h"
+#include <SFML\System\Clock.hpp>
 
 class Animation;
 
@@ -20,6 +21,8 @@ public:
 private:
 	void countdown();
 	void decompose();
+
+	sf::Clock mClock;
 
 	Animation *mDecomposeAnimation;
 	Animation *mFlowerStemAnimation;

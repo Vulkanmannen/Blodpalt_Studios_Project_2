@@ -16,6 +16,7 @@ public:
 private:
 	void move();
 
-	Animation *mEnemyAnimation;
+	Animation *mLeftAnimation;
+	Animation *mRightAnimation;
 };
 

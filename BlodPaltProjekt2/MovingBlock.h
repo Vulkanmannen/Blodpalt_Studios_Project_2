@@ -36,7 +36,7 @@ public:
 	void onCollision(Entity* e);
 
 private:
-
+	bool mMoveDir;
 
 };
 

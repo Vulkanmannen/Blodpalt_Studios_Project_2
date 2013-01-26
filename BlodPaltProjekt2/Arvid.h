@@ -24,6 +24,8 @@ public:
 	void onCollision();
 
 private:
+	void move();
+
 	Animation mIdleLeftAnimation;
 	Animation mIdleRightAnimation;
 	Animation mRunLeftAnimation;

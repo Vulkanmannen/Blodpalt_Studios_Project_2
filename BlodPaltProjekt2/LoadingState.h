@@ -1,9 +1,13 @@
 #ifndef INCLUDED_LOADINGMANAGER
 #define INCLUDED_LOADINGMANAGER
 #include <string>
+#include <memory>
 #include "State.h"
 
-class GameManager;
+namespace sf{
+	class Image;
+};
+class EntityManager;
 
 class LoadingState: public State{
 public:
@@ -14,7 +18,7 @@ public:
 	// /LoadingManager also needs a pointer to the GameManager
 	// /to fill with the entitys.
 	///////////////////////////////////////////////////////
-	LoadingState(std::string filePath, GameManager* game);
+	LoadingState(std::string filePath, EntityManager* manager);
 	///////////////////////////////////////////////////////
 	// /No dynamic members.
 	///////////////////////////////////////////////////////
@@ -30,7 +34,7 @@ public:
 	void draw(Super &r_super);
 
 private:
-	GameManager* mGameManager; //The GameState into which the level is loaded
+	EntityManager* mEntityManager; //The GameState into which the level is loaded
 	///////////////////////////////////////////////////////
 	// /No copies
 	///////////////////////////////////////////////////////
@@ -39,8 +43,8 @@ private:
 	// /No copies
 	///////////////////////////////////////////////////////
 	LoadingState& operator=(const LoadingState& load);
+
+	std::shared_ptr<sf::Image> mLevelImage;
 };
 
 #endif
-
-//r_super.getStateManger().popState();
