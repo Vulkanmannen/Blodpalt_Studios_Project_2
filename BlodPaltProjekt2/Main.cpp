@@ -16,6 +16,10 @@ int main()
 	//super->getStateManager().pushState(new IntroScreen());    
 	LoadingState loadstate("MAPJEVEL.png");
 	loadstate.update(*super);
+
+	//super->getStateManager().pushState(new WordMapState());
+	super->getStateManager().pushState(new IntroScreen());    
+
     while (super->getWindow().isOpen())
     {
         sf::Event event;

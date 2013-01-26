@@ -72,6 +72,9 @@
     <ClInclude Include="Super.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="WorldMapState.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -125,6 +128,7 @@
     <ClCompile Include="Super.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="LoadingState.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -132,6 +136,12 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
+=======
+    <ClCompile Include="WorldMapState.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingState.cpp">
+>>>>>>> 5d20802c642f264eaaacb56d5aeb5a06c6884ccc
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

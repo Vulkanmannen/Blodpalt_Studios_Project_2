@@ -42,7 +42,7 @@ void IntroScreen::draw(Super &r_super)
 //Restarts the stopwatch
 void IntroScreen::init()
 {
-	mMenuTexture.loadFromImage( *ResourceHandler::getInstance()->loadImage(""));
+	mMenuTexture.loadFromImage( *ResourceHandler::getInstance()->loadImage("MenuImages/BACKGROUND_MENU.png"));
 	mMenuSprite.setTexture(mMenuTexture);
 
 	mMenuClock.restart();

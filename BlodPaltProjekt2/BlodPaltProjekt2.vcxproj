@@ -31,6 +31,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="Super.h" />
+    <ClInclude Include="WorldMapState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -53,6 +54,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Super.cpp" />
+    <ClCompile Include="WorldMapState.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DB2ADA08-6ECE-460D-8372-CA1016702999}</ProjectGuid>
