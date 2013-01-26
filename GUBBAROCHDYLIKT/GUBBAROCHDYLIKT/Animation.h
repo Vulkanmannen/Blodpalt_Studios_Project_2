@@ -10,7 +10,7 @@
 class Animation
 {
 public:
-	Animation(const std::string &fileName, int timePerFrame, int frameCount);
+	Animation(const std::string &fileName = 0, int timePerFrame = 0, int frameCount = 1);
 	~Animation();
 
 	void update();
@@ -19,8 +19,6 @@ public:
 	bool endOfAnimation();
 
 	void resetFrameCount();
-
-
 private:
 	int mCurrentFrame;
 	int mTimePerFrame;

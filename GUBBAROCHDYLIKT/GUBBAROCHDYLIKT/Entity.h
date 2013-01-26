@@ -6,13 +6,13 @@
 class Entity
 {
 public:
-	enum EntityKind {ARVID, FLOWER, NORMALBLOCK, ENEMY, MOVINGBLOCK};
+	enum EntityKind {ARVID, FLOWER, NORMALBLOCK, ENEMY, PUSHABLEBLOCK};
 
 	Entity();
 	virtual ~Entity();
 	virtual void update() = 0;
 	virtual void render(sf::RenderWindow &window) = 0;
-	virtual void onCollision(Entity *e){};
+	virtual void onCollision(Entity *e, sf::FloatRect &result){};
 
 	// getfunktioner
 	bool			isActive()const;

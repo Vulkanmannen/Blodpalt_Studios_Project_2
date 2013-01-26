@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Entity.h"
 #include "Flower.h"
+#include "Enemy.h"
 
 
 int main()
@@ -14,7 +15,6 @@ int main()
 	window.setFramerateLimit(60);
 	sf::View view;
 	view.setSize(1980, 1080);
-
 	LoadingState loadState("MAPJEVEL.png");
 	loadState.loadLevel();
     while (window.isOpen())
