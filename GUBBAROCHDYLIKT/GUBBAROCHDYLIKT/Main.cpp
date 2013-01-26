@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "LoadingState.h"
 #include "EntityManager.h"
+#include <iostream>
 
 int main()
 {
@@ -9,12 +10,15 @@ int main()
 	loadState.loadLevel();
     while (window.isOpen())
     {
+		sf::Vector2i mouse = sf::Mouse::getPosition();
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				std::cout << mouse.x << " " << mouse.y << std::endl;
 		EntityManager::getInstance()->update();
 		window.clear(sf::Color(255, 0, 0, 255));
 		EntityManager::getInstance()->render(window);
