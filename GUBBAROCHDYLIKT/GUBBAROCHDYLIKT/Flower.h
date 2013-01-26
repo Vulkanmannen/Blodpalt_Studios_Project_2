@@ -19,7 +19,7 @@ public:
 
 	void update();
 	void render(sf::RenderWindow &window);
-	void onCollision(Entity *e);
+	void onCollision(Entity *e, sf::FloatRect &result);
 
 	void grow();
 	void isNotGrowing();

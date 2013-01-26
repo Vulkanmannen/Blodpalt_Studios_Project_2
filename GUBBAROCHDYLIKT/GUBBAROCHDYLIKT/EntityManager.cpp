@@ -29,13 +29,19 @@ void EntityManager::addEntity(Entity *e)
 	mEntityVector.push_back(e);
 }
 
+void EntityManager::addDynamicEntity(Entity* e)
+{
+	mEntityVector.push_back(e);
+	mDynamicEntityVector.push_back(e);
+}
+
 Entity* EntityManager::getArvid()
 {
-	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
+	for(EntityVector::size_type i = 0; i < mDynamicEntityVector.size(); ++i)
 	{
-		if(mEntityVector[i]->getEntityKind() == Entity::ARVID)
+		if(mDynamicEntityVector[i]->getEntityKind() == Entity::ARVID)
 		{
-			return mEntityVector[i];
+			return mDynamicEntityVector[i];
 		}
 	}
 }
@@ -73,13 +79,13 @@ void EntityManager::deleteInactives()
 
 void EntityManager::checkCollisions()
 {
-	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
+	for(EntityVector::size_type i = 0; i < mDynamicEntityVector.size(); ++i)
 	{
 		for(EntityVector::size_type j = 0; j < mEntityVector.size(); ++j)
 		{
-			if(mEntityVector[i]->getEntityKind() == Entity::ARVID && mEntityVector[j]->getEntityKind() != Entity::ARVID)
+			if(mDynamicEntityVector[i]->getEntityKind() == Entity::ARVID && mEntityVector[j]->getEntityKind() != Entity::ARVID)
 			{
-				ifEntitiesColliding(mEntityVector[i], mEntityVector[j]);
+				ifEntitiesColliding(mDynamicEntityVector[i], mEntityVector[j]);
 			}
 		}
 	}
@@ -88,40 +94,9 @@ void EntityManager::checkCollisions()
 void EntityManager::ifEntitiesColliding(Entity *e1, Entity *e2)
 {
 	sf::FloatRect result;
-	float xDif = e1->getHitBox().left - e2->getHitBox().left;
-	float yDif = e1->getHitBox().top - e2->getHitBox().top;
 
 	if(e1->getHitBox().intersects(e2->getHitBox(), result))
 	{
-		if(result.height > result.width)
-		{
-			if(result.left > e1->getHitBox().left)
-			{
-				e1->setPosition(sf::Vector2f(e1->getHitBox().left - result.width, e1->getHitBox().top));
-			}
-			else
-			{
-				e1->setPosition(sf::Vector2f(e1->getHitBox().left + result.width, e1->getHitBox().top));
-			}
-		}
-		else
-		{
-			if(result.top > e1->getHitBox().top)
-			{
-				if(result.width > 10)
-				{
-					e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top - result.height));
-					e1->onCollision(e2);
-				}
-			}
-			else
-			{
-				if(result.width > 10)
-				{
-					e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top + result.height));
-					e1->onCollision(e2);
-				}
-			}
-		}
+		e1->onCollision(e2,result);
 	}
 }
