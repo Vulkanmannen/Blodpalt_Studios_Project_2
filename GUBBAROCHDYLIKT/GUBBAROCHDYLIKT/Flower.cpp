@@ -80,7 +80,7 @@ void Flower::render(sf::RenderWindow &window)
 	//super->getWindow().draw();
 }
 
-void Flower::onCollision(Entity *e){
+void Flower::onCollision(Entity *e, sf::FloatRect &result){
 
 };
 
@@ -93,9 +93,9 @@ void Flower::grow()
 	if( mIsGrowing )
 	{
 		auto tempRect = mSprite.getTextureRect();
-		tempRect.height += 1;
+		tempRect.height += 3;
 		mSprite.setTextureRect( tempRect );
-		mSprite.setPosition( mSprite.getPosition().x, mSprite.getPosition().y - 1);
+		mSprite.setPosition( mSprite.getPosition().x, mSprite.getPosition().y - 3);
 		mHitBox.top = mSprite.getPosition().y;
 	}
 	else if(mGrowthDir == HORIZONTAL)

@@ -27,7 +27,8 @@ Arvid::Arvid(sf::Vector2f &position):
 	mFallAcc(0.8),
 	mJumpTime(0),
 	mLove(100),
-	mFlower(NULL)
+	mFlower(NULL),
+	mPlanting(false)
 { 
 	mEntityKind = ARVID;
 	setPosition(position);
@@ -44,23 +45,29 @@ Arvid::~Arvid(){ }
 void Arvid::update()
 {
 	move();
-	walk();
-	jump();
 	jumping();
-	fall();
 	falling();
-	plantFlower();
-
 	mCurrentAnimation->update();
 
+	plantFlower();
 
-	if(mCurrentAnimation == &mJumpLeftAnimation && mCurrentAnimation->endOfAnimation())
-		mCurrentAnimation = &mAirborneLeftAnimation;
+	if(!mPlanting)
+	{
+		walk();
+		jump();
+		fall();
 
-	else if(mCurrentAnimation == &mJumpRightAnimation && mCurrentAnimation->endOfAnimation())
-		mCurrentAnimation = &mAirborneRightAnimation;
-
-	
+		if(mCurrentAnimation == &mJumpLeftAnimation && mCurrentAnimation->endOfAnimation())
+		{
+			mCurrentAnimation->resetFrameCount();
+			mCurrentAnimation = &mAirborneLeftAnimation;
+		}
+		else if(mCurrentAnimation == &mJumpRightAnimation && mCurrentAnimation->endOfAnimation())
+		{
+			mCurrentAnimation->resetFrameCount();
+			mCurrentAnimation = &mAirborneRightAnimation;
+		}
+	}
 }
 
 void Arvid::render(sf::RenderWindow &window)
@@ -77,22 +84,66 @@ void Arvid::render(sf::RenderWindow &window)
 	window.draw(mCurrentAnimation->getSprite());
 }
 
-void Arvid::onCollision(Entity *e)
+void Arvid::onCollision(Entity *e, sf::FloatRect &result)
 {
-	float yDif = mHitBox.top - e->getHitBox().top;  
+	EntityKind kind = e->getEntityKind();
 
-	if(yDif < - 55)
-	{
-		if(mFalling)
+	if(kind == NORMALBLOCK)
 		{
-			mMovementSpeed.y = MINFALLSPEED;
+		if(result.height > result.width)
+		{
+			if(result.left > mHitBox.left)
+			{
+				mHitBox.left -= result.width;
+			}
+			else
+			{
+				mHitBox.left += result.width;
+			}
 		}
-		mFalling = false;
+		else
+		{
+			if(result.top > mHitBox.top)
+			{
+				if(result.width > 10)
+				{
+					mHitBox.top -= result.height;
+
+					if(mFalling)
+					{
+						mMovementSpeed.y = MINFALLSPEED;
+					}
+					mFalling = false;
+				}
+			}
+			else
+			{
+				if(result.width > 10)
+				{
+					mHitBox.top += result.height;
+					dontJump();
+				}
+			}
+		}
 	}
-	else if(yDif > 55)
+	else if(kind == FLOWER)
 	{
-		dontJump();
+		if(mHitBox.top < e->getHitBox().top - 275)
+		{
+			if(result.width > 10)
+			{
+				mHitBox.top -= result.height;
+
+				if(mFalling)
+				{
+					mMovementSpeed.y = MINFALLSPEED;
+				}
+				mFalling = false;
+			}
+		}
 	}
+
+
 }
 
 void Arvid::move()
@@ -119,6 +170,11 @@ void Arvid::move()
 			mCurrentAnimation = &mIdleRightAnimation;
 		}
 	}
+
+	if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || mPlanting)
+	{
+		mMovementSpeed.x = 0;			
+	}
 }
 
 void Arvid::walk()
@@ -130,10 +186,6 @@ void Arvid::walk()
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mMovementSpeed.x > -MAXRUNSPEED)
 	{
 		mMovementSpeed.x -= mRunSpeed;
-	}
-	else if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		mMovementSpeed.x = 0;			
 	}
 }
 
@@ -202,17 +254,22 @@ void Arvid::falling()
 
 void Arvid::plantFlower()
 {
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !mJumping && !mFalling)
 	{
+		mPlanting = true;
+
 		if(mFlower == NULL)
 		{
 			mFlower = new Flower(getPosition() + sf::Vector2f(128, 240));
-			EntityManager::getInstance()->addEntity(mFlower);
+			EntityManager::getInstance()->addDynamicEntity(mFlower);
 		}
+
 		mFlower->grow();
 	}
 	else
 	{
+		mPlanting = false;
+
 		if(mFlower != NULL)
 		{
 			mFlower->isNotGrowing();

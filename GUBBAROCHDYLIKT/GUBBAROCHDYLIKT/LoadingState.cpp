@@ -44,17 +44,17 @@ void LoadingState::loadLevel()
 		
 			else if(color == sf::Color(255, 0, 0, 255))
 			{
-				mEntityManager->addEntity(new MovingBlock(position));
+				mEntityManager->addDynamicEntity(new MovingBlock(position));
 			}
 
 			else if(color == sf::Color(0, 0, 255, 255))
 			{
-				mEntityManager->addEntity(new MovingBlock(position, MovementMode::VERTICAL));
+				mEntityManager->addDynamicEntity(new MovingBlock(position, MovementMode::VERTICAL));
 			}
 
 			else if(color == sf::Color(255, 255, 0, 255))
 			{
-				mEntityManager->addEntity(new Arvid(position));
+				mEntityManager->addDynamicEntity(new Arvid(position));
 			}
 		}
 	}

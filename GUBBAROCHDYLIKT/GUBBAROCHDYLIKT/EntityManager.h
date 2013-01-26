@@ -11,6 +11,7 @@ class EntityManager
 {
 public:
 	typedef std::vector<Entity*> EntityVector;
+
 	static EntityManager* getInstance();
 
 	~EntityManager();
@@ -18,6 +19,8 @@ public:
 	void render(sf::RenderWindow &window);
 
 	void addEntity(Entity* e);
+	void addDynamicEntity(Entity* e);
+
 	void deleteInactives();
 
 	Entity* getArvid();
@@ -28,6 +31,7 @@ private:
 	const void operator=(const EntityManager);
 
 	EntityVector mEntityVector;
+	EntityVector mDynamicEntityVector;
 
 	static EntityManager* sInstance;
 

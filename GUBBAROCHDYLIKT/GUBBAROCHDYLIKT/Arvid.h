@@ -22,7 +22,7 @@ public:
 	void update();
 	void render(sf::RenderWindow &window);
 
-	void onCollision(Entity *e);
+	void onCollision(Entity *e, sf::FloatRect &result);
 
 private:
 	void move();
@@ -35,7 +35,7 @@ private:
 
 	void plantFlower();
 
-	bool mRunLeft;
+
 
 	//Animation mIdleLeftAnimation;
 	Animation mIdleRightAnimation;
@@ -56,6 +56,8 @@ private:
 	float			mFallAcc;
 	int				mJumpTime;
 	int				mLove;
+	bool			mRunLeft;
+	bool			mPlanting;
 
 	Flower* mFlower;
 
