@@ -15,7 +15,7 @@ class ResourceHandler;
 class Arvid : public Entity
 {
 public:
-	Arvid();
+	Arvid(sf::Vector2f &position);
 	~Arvid();
 
 	void update();

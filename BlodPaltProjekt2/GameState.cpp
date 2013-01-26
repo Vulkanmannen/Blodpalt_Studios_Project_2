@@ -1,9 +1,6 @@
 #include "GameState.h"
-#include "Manager.h"
 #include "Super.h"
 #include "InGameMenu.h"
-#include "ImageManager.h"
-#include "Man.h"
 #include <SFML\Window\Keyboard.hpp>
 
 

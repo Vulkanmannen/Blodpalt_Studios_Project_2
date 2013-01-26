@@ -35,7 +35,7 @@ private:
 	static ResourceHandler* mInstance;
 	ResourceHandler();
 
-	sf::RenderWindow &window;
+	//sf::RenderWindow &window;
 
 	std::map<std::string, std::weak_ptr<sf::Image> >	Images;
 	std::map<std::string, std::weak_ptr<sf::Music> >	Music;

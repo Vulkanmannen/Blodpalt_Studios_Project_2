@@ -2,6 +2,8 @@
 #include "Super.h"
 #include "WorldMapState.h"
 #include "IntroScreen.h"
+#include "LoadingState.h"
+#include "EntityManager.h"
 
 int main()
 {
@@ -10,10 +12,10 @@ int main()
 	super->getWindow().setVerticalSyncEnabled(true);
 	super->getWindow().setFramerateLimit(60);
 
-
-	super->getStateManager().pushState(new WordMapState());
-	super->getStateManager().pushState(new IntroScreen());    
-
+	//super->getStateManager().pushState(new WordMapState());
+	//super->getStateManager().pushState(new IntroScreen());    
+	LoadingState loadstate("MAPJEVEL.png");
+	loadstate.update(*super);
     while (super->getWindow().isOpen())
     {
         sf::Event event;
@@ -22,10 +24,11 @@ int main()
             if (event.type == sf::Event::Closed)
                 super->getWindow().close();
         }
+		EntityManager::getInstance()->update();
+		EntityManager::getInstance()->render();
+		//super->update();
 
-		super->update();
-
-		super->draw();
+		//super->draw();
        
     }
 

@@ -19,15 +19,15 @@ InGameMenu::~InGameMenu()
 
 void InGameMenu::update(Super &r_super)
 {
-	if(/*RESUMEKNAPPEN BLIVIT VALD*/)
-	{
-		r_super.getStateManager().popState();
-	}
+	//if(/*RESUMEKNAPPEN BLIVIT VALD*/)
+	//{
+	//	r_super.getStateManager().popState();
+	//}
 
-	if(/*MAIN MENU BLIVIT VALD*/)
-	{
-		r_super.getStateManager().popState();
-	}
+	//if(/*MAIN MENU BLIVIT VALD*/)
+	//{
+	//	r_super.getStateManager().popState();
+	//}
 }
 
 //Draw menu sprites on display

@@ -1,4 +1,5 @@
 #include "ResourceHandler.h"
+#include "Super.h"
 #include <iostream>
 #include <cassert>
 
@@ -48,7 +49,7 @@ std::shared_ptr<sf::Image> ResourceHandler::loadImage(const std::string &path)
 
 void ResourceHandler::render(sf::Drawable &drawable)
 {
-	
+	Super::getInstance()->getWindow().draw(drawable);
 }
 
 /*********************	

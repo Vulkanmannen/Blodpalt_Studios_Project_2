@@ -18,7 +18,7 @@ public:
 	// /LoadingManager also needs a pointer to the GameManager
 	// /to fill with the entitys.
 	///////////////////////////////////////////////////////
-	LoadingState(std::string filePath, EntityManager* manager);
+	LoadingState(std::string filePath);
 	///////////////////////////////////////////////////////
 	// /No dynamic members.
 	///////////////////////////////////////////////////////
@@ -43,6 +43,8 @@ private:
 	// /No copies
 	///////////////////////////////////////////////////////
 	LoadingState& operator=(const LoadingState& load);
+
+	void loadLevel();
 
 	std::shared_ptr<sf::Image> mLevelImage;
 };

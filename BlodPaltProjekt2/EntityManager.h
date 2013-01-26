@@ -1,11 +1,15 @@
 #ifndef INCLUDED_ENTITYMANAGER
 #define INCLUDED_ENTITYMANAGER
 
+#include <memory>
+#include <vector>
+
 class Entity;
 
 class EntityManager
 {
 public:
+	typedef std::vector<Entity*> EntityVector;
 	static EntityManager* getInstance();
 
 	~EntityManager();
@@ -19,6 +23,8 @@ private:
 	EntityManager();
 	EntityManager(const EntityManager&);
 	const void operator=(const EntityManager);
+
+	EntityVector mEntityVector;
 
 	static EntityManager* sInstance;
 

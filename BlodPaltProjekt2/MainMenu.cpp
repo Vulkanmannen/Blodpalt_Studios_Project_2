@@ -31,22 +31,22 @@ void MainMenu::update(Super &r_super)
 	}
 
 
-	if(/*SPELA KNAPPEN BLIVIT VALD*/)
-	{
-		r_super.getStateManager().popState();
-		r_super.getStateManager().pushState(new GameState());
-	}
+	//if(/*SPELA KNAPPEN BLIVIT VALD*/)
+	//{
+	//	r_super.getStateManager().popState();
+	//	r_super.getStateManager().pushState(new GameState());
+	//}
 
-	if(/*HOWTOPLAY KNAPPEN BLIVIT VALD*/)
-	{
-		r_super.getStateManager().popState();
-		r_super.getStateManager().pushState(new HowToPlayMenu());		
-	}
+	//if(/*HOWTOPLAY KNAPPEN BLIVIT VALD*/)
+	//{
+	//	r_super.getStateManager().popState();
+	//	r_super.getStateManager().pushState(new HowToPlayMenu());		
+	//}
 
-	if(/*QUIT KNAPPEN BLIVIT VALD*/)
-	{
-		r_super.getStateManager().clear();		
-	}
+	//if(/*QUIT KNAPPEN BLIVIT VALD*/)
+	//{
+	//	r_super.getStateManager().clear();		
+	//}
 }
 
 //Draw menu sprites on display

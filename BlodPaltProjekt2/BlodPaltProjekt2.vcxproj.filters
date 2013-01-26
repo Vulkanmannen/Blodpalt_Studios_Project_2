@@ -125,5 +125,14 @@
     <ClCompile Include="Super.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="LoadingState.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalBlock.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
