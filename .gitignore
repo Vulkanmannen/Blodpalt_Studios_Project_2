@@ -40,9 +40,7 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
-*.vcxproj
 *.sln
-*.vcxproj.filters
 
 # Build results
 [Dd]ebug/
@@ -65,9 +63,7 @@ local.properties
 *.vspscc
 .builds
 *.dotCover
-*.vcxproj
 *.sln
-*.vcxproj.filters
 
 ## TODO: If you have NuGet Package Restore enabled, uncomment this
 #packages/
