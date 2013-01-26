@@ -10,12 +10,15 @@ static const int	JUMPTIME		= 30;
 static const float	MINFALLSPEED	= 0.1;
 static const float	MAXFALLSPEED	= 20;
 
-Arvid::Arvid(sf::Vector2f &position):/*
-	mIdleLeftAnimation	("", 0, 0),
-	mIdleRightAnimation ("", 0, 0),
-	mRunLeftAnimation	("", 0, 0),
-	mRunRightAnimation	("", 0, 0),
-	mJumpAnimation		("", 0, 0)*/
+Arvid::Arvid(sf::Vector2f &position):
+	//mIdleLeftAnimation	("", 0, 0),
+	mIdleRightAnimation ("arvid_idle_placehold.png", 0, 1),
+	mRunLeftAnimation	("arvid_sprint_left.png", 24, 16),
+	mRunRightAnimation	("arvid_sprint_right.png", 24, 16),
+	mJumpRightAnimation	("arvid_jump_right.png", 24, 9),
+	mJumpLeftAnimation	("arvid_jump_left.png", 24, 9),
+	mAirborneLeftAnimation("arvid_airborne_left.png", 0, 1),
+	mAirborneRightAnimation("arvid_airborne_right.png", 0, 1),
 	mMovementSpeed(0,1),
 	mRunSpeed(3),
 	mJumping(false),
@@ -31,7 +34,8 @@ Arvid::Arvid(sf::Vector2f &position):/*
 	mTexture.loadFromFile("GUBBJEVEL.png");
 	mSprite.setTexture(mTexture);
 	mSprite.setPosition(position);
-	mHitBox = sf::FloatRect(position, sf::Vector2f(128, 128));
+	mHitBox = sf::FloatRect(position + sf::Vector2f(113, 32), sf::Vector2f(96, 285));
+	mCurrentAnimation = &mIdleRightAnimation;
 }
 
 Arvid::~Arvid(){ }
@@ -46,12 +50,31 @@ void Arvid::update()
 	fall();
 	falling();
 	plantFlower();
+
+	mCurrentAnimation->update();
+
+
+	if(mCurrentAnimation == &mJumpLeftAnimation && mCurrentAnimation->endOfAnimation())
+		mCurrentAnimation = &mAirborneLeftAnimation;
+
+	else if(mCurrentAnimation == &mJumpRightAnimation && mCurrentAnimation->endOfAnimation())
+		mCurrentAnimation = &mAirborneRightAnimation;
+
+	
 }
 
 void Arvid::render(sf::RenderWindow &window)
 {
-	mSprite.setPosition(getPosition());
-	window.draw(mSprite);
+	mIdleRightAnimation.setPosition(getPosition());
+	mRunLeftAnimation.setPosition(getPosition());
+	mRunRightAnimation.setPosition(getPosition());
+	mJumpRightAnimation.setPosition(getPosition());
+	mJumpLeftAnimation.setPosition(getPosition());
+	mAirborneLeftAnimation.setPosition(getPosition());
+	mAirborneRightAnimation.setPosition(getPosition());
+
+	mCurrentAnimation->setPosition(getPosition()- sf::Vector2f(113, 32));
+	window.draw(mCurrentAnimation->getSprite());
 }
 
 void Arvid::onCollision(Entity *e)
@@ -77,6 +100,25 @@ void Arvid::move()
 	float x = mHitBox.left;
 	float y = mHitBox.top;
 	setPosition(sf::Vector2f(x += mMovementSpeed.x, y += mMovementSpeed.y));
+
+	if(!mJumping && !mFalling)
+	{
+		if(mMovementSpeed.x > 0)
+		{
+			mCurrentAnimation = &mRunRightAnimation;
+			mRunLeft = false;
+		}
+		else if(mMovementSpeed.x < 0)
+		{
+			mCurrentAnimation = &mRunLeftAnimation;
+			mRunLeft = true;
+		}
+		else
+		{
+			mCurrentAnimation->resetFrameCount();
+			mCurrentAnimation = &mIdleRightAnimation;
+		}
+	}
 }
 
 void Arvid::walk()
@@ -91,7 +133,7 @@ void Arvid::walk()
 	}
 	else if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		mMovementSpeed.x = 0;
+		mMovementSpeed.x = 0;			
 	}
 }
 
@@ -102,6 +144,17 @@ void Arvid::jump()
 		mJumping = true;
 		mJumpTime = 0;
 		mMovementSpeed.y = -MAXJUMPSPEED;
+		
+		if(mRunLeft == true)
+		{
+			mCurrentAnimation->resetFrameCount();
+			mCurrentAnimation = &mJumpLeftAnimation;
+		}
+		else
+		{
+			mCurrentAnimation->resetFrameCount();
+			mCurrentAnimation = &mJumpRightAnimation;
+		}
 	}
 }
 
@@ -151,15 +204,19 @@ void Arvid::plantFlower()
 {
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	{
-		//if(mFlower == NULL)
-		//{
-		//	mFlower = new Flower();
-		//	EntityManager::getInstance()->addEntity(mFlower);
-		//}
-		//mFlower->grow();
+		if(mFlower == NULL)
+		{
+			mFlower = new Flower(getPosition() + sf::Vector2f(128, 240));
+			EntityManager::getInstance()->addEntity(mFlower);
+		}
+		mFlower->grow();
 	}
 	else
 	{
+		if(mFlower != NULL)
+		{
+			mFlower->isNotGrowing();
+		}
 		mFlower = NULL;
 	}
 }

@@ -18,9 +18,11 @@ public:
 	const sf::Sprite& getSprite() const;
 	bool endOfAnimation();
 
+	void resetFrameCount();
+
 
 private:
-	int mCurrentAnimation;
+	int mCurrentFrame;
 	int mTimePerFrame;
 	int mNumberOfFrames;
 	bool mEndOfAnimation;

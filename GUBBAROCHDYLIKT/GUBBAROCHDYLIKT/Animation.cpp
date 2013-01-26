@@ -6,7 +6,7 @@ Animation::Animation(const std::string &fileName, int timePerFrame, int numberOf
 		mTimePerFrame(timePerFrame),
 		mNumberOfFrames(numberOfFrames),
 
-		mCurrentAnimation(0),
+		mCurrentFrame(0),
 		mEndOfAnimation(false)
 {
 	mTexture.loadFromImage(*ResourceHandler::getInstance()->loadImage(fileName));
@@ -14,7 +14,7 @@ Animation::Animation(const std::string &fileName, int timePerFrame, int numberOf
 	mSprite.setTexture(mTexture);
 	sf::IntRect textureRect(0, 0, mTexture.getSize().x / mNumberOfFrames, mTexture.getSize().y);
 	mSprite.setTextureRect(textureRect);
-	mSprite.setOrigin(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
+	//mSprite.setOrigin(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
 }
 
 Animation::~Animation() {}
@@ -26,12 +26,12 @@ void Animation::update()
 	if(mFrameTimer.getElapsedTime().asMilliseconds() > mTimePerFrame)
 	{
 		mFrameTimer.restart();
-		mCurrentAnimation++;
+		mCurrentFrame++;
 
-		if(mCurrentAnimation >= mNumberOfFrames)
+		if(mCurrentFrame >= mNumberOfFrames)
 		{
 			mEndOfAnimation = true;
-			mCurrentAnimation = 0; 
+			mCurrentFrame = 0; 
 		}
 		else
 		{
@@ -39,7 +39,7 @@ void Animation::update()
 		}
 		
 		sf::IntRect currentRect = mSprite.getTextureRect();
-		currentRect.left = currentRect.width * mCurrentAnimation;
+		currentRect.left = currentRect.width * mCurrentFrame;
 		mSprite.setTextureRect(currentRect);
 	}
 }
@@ -60,4 +60,9 @@ const sf::Sprite& Animation::getSprite() const
 bool Animation::endOfAnimation()
 {
 	return mEndOfAnimation;
+}
+
+void Animation::resetFrameCount()
+{
+	mCurrentFrame = 0;
 }

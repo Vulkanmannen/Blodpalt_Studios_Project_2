@@ -14,7 +14,7 @@ public:
 	enum GrowthDir{
 		HORIZONTAL, VERTICAL
 	};
-	Flower(sf::Vector2f position, GrowthDir dir = HORIZONTAL);
+	Flower(sf::Vector2f position, GrowthDir dir = VERTICAL);
 	~Flower();
 
 	void update();

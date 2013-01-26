@@ -18,7 +18,7 @@ public:
 	void render(sf::RenderWindow &window);
 
 	void addEntity(Entity* e);
-	void clear();
+	void deleteInactives();
 
 	Entity* getArvid();
 

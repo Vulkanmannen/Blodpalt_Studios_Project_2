@@ -22,7 +22,7 @@ Flower::Flower(sf::Vector2f position, GrowthDir dir) :
 		//Assign hitbox bounds
 	if (mGrowthDir == VERTICAL ){
 		mHitBox.width = 128;
-		mHitBox.height = 0;
+		mHitBox.height = 48;
 	}
 	else{
 		mHitBox.width = 0;
@@ -37,7 +37,7 @@ Flower::Flower(sf::Vector2f position, GrowthDir dir) :
 		//Set it's sprite's stats
 	mSprite.setTexture( *mFlowerTex );
 	mSprite.setPosition( position );
-	mSprite.setTextureRect( sf::IntRect(0,0,128,0) );
+	mSprite.setTextureRect( sf::IntRect(0,0,128,48) );
 	if( mGrowthDir == HORIZONTAL)
 		mSprite.rotate( 90 );
 }
@@ -84,33 +84,32 @@ void Flower::onCollision(Entity *e){
 
 };
 
-void Flower::grow(){
+void Flower::grow()
+{
 	if( abs(mSprite.getTextureRect().height) >= 640 )
+	{
 		mIsGrowing = false;
-
+	}
 	if( mIsGrowing )
 	{
-		if(mGrowthDir == VERTICAL){
-			if( abs(mHitBox.height) < 48 )
-				mHitBox.height -= 1;
-
-			auto tempRect = mSprite.getTextureRect();
-			tempRect.top += 1;
-			tempRect.height -= 1;
-			mSprite.setTextureRect( tempRect );
-			mHitBox.top = tempRect.top;
-
+		auto tempRect = mSprite.getTextureRect();
+		tempRect.height += 1;
+		mSprite.setTextureRect( tempRect );
+		mSprite.setPosition( mSprite.getPosition().x, mSprite.getPosition().y - 1);
+		mHitBox.top = mSprite.getPosition().y;
+	}
+	else if(mGrowthDir == HORIZONTAL)
+	{
+		if( abs(mHitBox.width) <= 48 )
+		{
+			mHitBox.width -1;
 		}
-		else if(mGrowthDir == HORIZONTAL){
-			if( abs(mHitBox.width) <= 48 )
-				mHitBox.width -1;
-			
-			auto tempRect = mSprite.getTextureRect();
-			tempRect.top += 1;
-			tempRect.height -= 1;
-			mSprite.setTextureRect( tempRect );
-			mHitBox.left = tempRect.left - mHitBox.width; 
-		}
+		auto tempRect = mSprite.getTextureRect();
+		tempRect.top += 1;
+		tempRect.height -= 1;
+		mSprite.setTextureRect( tempRect );
+		mHitBox.left = tempRect.left - mHitBox.width; 
+
 	}
 }
 

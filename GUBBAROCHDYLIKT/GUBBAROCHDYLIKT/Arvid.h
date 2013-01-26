@@ -35,13 +35,18 @@ private:
 
 	void plantFlower();
 
-	/*Animation mIdleLeftAnimation;
+	bool mRunLeft;
+
+	//Animation mIdleLeftAnimation;
 	Animation mIdleRightAnimation;
 	Animation mRunLeftAnimation;
 	Animation mRunRightAnimation;
-	Animation mJumpAnimation;
+	Animation mJumpRightAnimation;
+	Animation mJumpLeftAnimation;
+	Animation mAirborneLeftAnimation;
+	Animation mAirborneRightAnimation;
 
-	Animation* mCurrentAnimation;*/
+	Animation* mCurrentAnimation;
 
 	sf::Vector2f	mMovementSpeed;
 	float			mRunSpeed;

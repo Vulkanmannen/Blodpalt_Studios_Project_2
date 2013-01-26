@@ -2,11 +2,9 @@
 #include "LoadingState.h"
 #include "EntityManager.h"
 #include <iostream>
-<<<<<<< HEAD
 #include "Entity.h"
-=======
 #include "Flower.h"
->>>>>>> 216b2c51e9211d8e8ccca2232eef16d716d7fe73
+
 
 int main()
 {

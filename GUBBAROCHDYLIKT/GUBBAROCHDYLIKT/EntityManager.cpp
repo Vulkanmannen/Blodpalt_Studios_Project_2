@@ -20,7 +20,7 @@ EntityManager::EntityManager()
 
 EntityManager::~EntityManager()
 {
-	clear();
+
 }
 
 
@@ -47,6 +47,7 @@ void EntityManager::update()
 		mEntityVector[i]->update();
 	}
 	checkCollisions();
+	deleteInactives();
 }
 
 void EntityManager::render(sf::RenderWindow &window)
@@ -57,7 +58,7 @@ void EntityManager::render(sf::RenderWindow &window)
 	}
 }
 
-void EntityManager::clear()
+void EntityManager::deleteInactives()
 {
 	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
 	{
@@ -94,22 +95,22 @@ void EntityManager::ifEntitiesColliding(Entity *e1, Entity *e2)
 	{
 		if(result.height > result.width)
 		{
-			if(xDif > 0)
+			if(result.left > e1->getHitBox().left)
 			{
-				e1->setPosition(sf::Vector2f(e1->getHitBox().left + result.width, e1->getHitBox().top));
+				e1->setPosition(sf::Vector2f(e1->getHitBox().left - result.width, e1->getHitBox().top));
 			}
 			else
 			{
-				e1->setPosition(sf::Vector2f(e1->getHitBox().left - result.width, e1->getHitBox().top));
+				e1->setPosition(sf::Vector2f(e1->getHitBox().left + result.width, e1->getHitBox().top));
 			}
 		}
 		else
 		{
-			if(yDif > 0)
+			if(result.top > e1->getHitBox().top)
 			{
 				if(result.width > 10)
 				{
-					e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top + result.height));
+					e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top - result.height));
 					e1->onCollision(e2);
 				}
 			}
@@ -117,7 +118,7 @@ void EntityManager::ifEntitiesColliding(Entity *e1, Entity *e2)
 			{
 				if(result.width > 10)
 				{
-					e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top - result.height));
+					e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top + result.height));
 					e1->onCollision(e2);
 				}
 			}
