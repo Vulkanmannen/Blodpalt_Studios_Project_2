@@ -3,8 +3,6 @@
 #include "GameState.h"
 #include <SFML\Window\Mouse.hpp>
 #include <SFML\Window\Keyboard.hpp>
-#include "ImageManager.h"
-#include "LevelManager.h"
 
 
 LevelMenu::LevelMenu()
@@ -59,17 +57,7 @@ void LevelMenu::drawGoldPieces(int level)
 
 void LevelMenu::draw(Super &r_super) 
 {
-	r_super.getWindow().draw(m_menuSprite);
-	r_super.getWindow().draw(m_level1);
-	r_super.getWindow().draw(m_level2);
-	drawGoldPieces(1);
-	drawGoldPieces(2);
-	/*
-	drawGoldPieces(3);
-	drawGoldPieces(4);
-	drawGoldPieces(5);
-	drawGoldPieces(6);
-	*/
+	r_super.getWindow().draw();
 }
 
 void LevelMenu::init()

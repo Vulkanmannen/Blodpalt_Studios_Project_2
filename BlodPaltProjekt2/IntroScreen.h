@@ -22,9 +22,10 @@ public:
 	void init();
 	
 private:
-	sf::Texture m_menuTexture;
-	sf::Sprite m_menuSprite;
-	sf::Clock m_menuClock;
+	sf::Texture mMenuTexture;
+	sf::Sprite mMenuSprite;
+
+	sf::Clock mMenuClock;
 };
 
 #endif

@@ -6,8 +6,6 @@
 #include <SFML\Graphics\Texture.hpp>
 class Super;
 class GameState;
-class LevelManager;
-class ImageManager;
 
 class LevelMenu : public MenuState
 {

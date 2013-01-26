@@ -6,7 +6,6 @@
 #include <SFML\Graphics\Texture.hpp>
 
 class Super;
-class ImageManager;
 
 class OptionMenu : public MenuState
 {
@@ -20,20 +19,11 @@ public:
 	void init();
 
 private:
-	void buttonAnimation(Super &r_super);
+	sf::Texture mMenuTexture;
+	sf::Sprite  mMenuSprite;
 
-	//sf::Texture m_menuTexture;
-	//sf::Sprite m_menuSprite;
-
-	//sf::Texture m_backTexture;
-	//sf::Sprite m_backSprite;
-
-	//sf::Texture m_backTextureHover;
-	//sf::Sprite m_backSpriteHover;
-
-	//sf::Sprite m_backTextureRect;
-
-	//sf::Texture *m_currentBackTexture;
+	sf::Texture mBackTexture;
+	sf::Sprite  mBackSprite;
 };
 
 #endif
