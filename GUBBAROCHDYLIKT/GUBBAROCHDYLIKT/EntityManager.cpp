@@ -1,5 +1,6 @@
 #include "EntityManager.h"
 #include "Entity.h"
+#include "Arvid.h"
 
 EntityManager* EntityManager::sInstance = 0;
 
@@ -26,6 +27,17 @@ EntityManager::~EntityManager()
 void EntityManager::addEntity(Entity *e)
 {
 	mEntityVector.push_back(e);
+}
+
+Entity* EntityManager::getArvid()
+{
+	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
+	{
+		if(mEntityVector[i]->getEntityKind() == Entity::ARVID)
+		{
+			return mEntityVector[i];
+		}
+	}
 }
 
 void EntityManager::update()
@@ -62,7 +74,7 @@ void EntityManager::checkCollisions()
 {
 	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
 	{
-		for(EntityVector::size_type j = i; j < mEntityVector.size(); ++j)
+		for(EntityVector::size_type j = 0; j < mEntityVector.size(); ++j)
 		{
 			if(mEntityVector[i]->getEntityKind() == Entity::ARVID && mEntityVector[j]->getEntityKind() != Entity::ARVID)
 			{
@@ -95,11 +107,19 @@ void EntityManager::ifEntitiesColliding(Entity *e1, Entity *e2)
 		{
 			if(yDif > 0)
 			{
-				e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top + result.height));
+				if(result.width > 10)
+				{
+					e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top + result.height));
+					e1->onCollision(e2);
+				}
 			}
 			else
 			{
-				e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top - result.height));
+				if(result.width > 10)
+				{
+					e1->setPosition(sf::Vector2f(e1->getHitBox().left, e1->getHitBox().top - result.height));
+					e1->onCollision(e2);
+				}
 			}
 		}
 	}

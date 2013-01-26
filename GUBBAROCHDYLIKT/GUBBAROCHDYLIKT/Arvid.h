@@ -11,6 +11,7 @@
 #include <memory>
 
 class ResourceHandler;
+class Flower;
 
 class Arvid : public Entity
 {
@@ -21,14 +22,18 @@ public:
 	void update();
 	void render(sf::RenderWindow &window);
 
-	void onCollision();
+	void onCollision(Entity *e);
 
 private:
 	void move();
 	void walk();
 	void jump();
+	void dontJump();
 	void jumping();
+	void fall();
+	void falling();
 
+	void plantFlower();
 
 	/*Animation mIdleLeftAnimation;
 	Animation mIdleRightAnimation;
@@ -41,8 +46,13 @@ private:
 	sf::Vector2f	mMovementSpeed;
 	float			mRunSpeed;
 	bool			mJumping;
+	bool			mFalling;
 	float			mJumpDecrease;
+	float			mFallAcc;
 	int				mJumpTime;
+	int				mLove;
+
+	Flower* mFlower;
 
 	sf::Clock	mClock;
 	sf::Texture	mTexture;

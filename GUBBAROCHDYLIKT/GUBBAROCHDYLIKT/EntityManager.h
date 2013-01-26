@@ -20,6 +20,8 @@ public:
 	void addEntity(Entity* e);
 	void clear();
 
+	Entity* getArvid();
+
 private:
 	EntityManager();
 	EntityManager(const EntityManager&);
