@@ -25,8 +25,8 @@ void HowToPlayMenu::draw(Super &r_super)
 
 void HowToPlayMenu::init()
 {
-	mMenuTexture.loadFromImage( *ResourceHandler::getInstance()->loadImage("")); 
-	mBackTexture.loadFromImage( *ResourceHandler::getInstance()->loadImage(""));
+	mMenuTexture.loadFromImage( *ResourceHandler::getInstance()->loadImage("MenuImages/BACKGROUND_MENU.png")); 
+	mBackTexture.loadFromImage( *ResourceHandler::getInstance()->loadImage("MenuImages/back_button.png"));
 
 
 	mMenuSprite.setTexture(mMenuTexture);

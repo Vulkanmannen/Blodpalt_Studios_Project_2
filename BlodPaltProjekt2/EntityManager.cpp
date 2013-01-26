@@ -1,9 +1,9 @@
-#include "EntityManager.h"
-
-
-EntityManager::EntityManager()
-	{}
-
-
-EntityManager::~EntityManager()
-	{}
+//#include "EntityManager.h"
+//
+//
+//EntityManager::EntityManager()
+//	{}
+//
+//
+//EntityManager::~EntityManager()
+//	{}

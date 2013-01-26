@@ -11,7 +11,7 @@ int main()
 	super->getWindow().setFramerateLimit(60);
 
 
-	super->getStateManager().pushState(new WordMapState());
+	//super->getStateManager().pushState(new WordMapState());
 	super->getStateManager().pushState(new IntroScreen());    
 
     while (super->getWindow().isOpen())

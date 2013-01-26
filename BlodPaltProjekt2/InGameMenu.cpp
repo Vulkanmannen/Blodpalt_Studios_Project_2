@@ -19,15 +19,15 @@ InGameMenu::~InGameMenu()
 
 void InGameMenu::update(Super &r_super)
 {
-	if(/*RESUMEKNAPPEN BLIVIT VALD*/)
-	{
-		r_super.getStateManager().popState();
-	}
+	//if(/*RESUMEKNAPPEN BLIVIT VALD*/)
+	//{
+	//	r_super.getStateManager().popState();
+	//}
 
-	if(/*MAIN MENU BLIVIT VALD*/)
-	{
-		r_super.getStateManager().popState();
-	}
+	//if(/*MAIN MENU BLIVIT VALD*/)
+	//{
+	//	r_super.getStateManager().popState();
+	//}
 }
 
 //Draw menu sprites on display
@@ -42,10 +42,17 @@ void InGameMenu::draw(Super &r_super)
 //press this button, we give this a position
 void InGameMenu::init()
 {
-	mMenuTexture.loadFromImage			  ( *ResourceHandler::getInstance()->loadImage(""));
-	mReturnToMainMenuTexture.loadFromImage( *ResourceHandler::getInstance()->loadImage(""));
+	mMenuTexture.loadFromImage			  ( *ResourceHandler::getInstance()->loadImage("MenuImages/BACKGROUND_MENU.png"));
+	mResumeTexture.loadFromImage		  ( *ResourceHandler::getInstance()->loadImage("MenuImages/back_button.png"));
+	mReturnToMainMenuTexture.loadFromImage( *ResourceHandler::getInstance()->loadImage("MenuImages/back_button.png"));
 
 
 	mMenuSprite.setTexture(mMenuTexture);
+	mResumeSprite.setTexture(mResumeTexture);
 	mReturnToMainMenuSprite.setTexture(mReturnToMainMenuTexture);
+
+	mResumeSprite.setTextureRect			(sf::IntRect(760, 330, 400, 120));
+	mResumeSprite.setPosition				(760, 330);
+	mReturnToMainMenuSprite.setTextureRect	(sf::IntRect(760, 480, 400, 120));
+	mReturnToMainMenuSprite.setPosition		(760, 480);
 }

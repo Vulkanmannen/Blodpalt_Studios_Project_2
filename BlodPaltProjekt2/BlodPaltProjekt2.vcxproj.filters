@@ -72,6 +72,9 @@
     <ClInclude Include="Super.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="WorldMapState.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -123,6 +126,12 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Super.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapState.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingState.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

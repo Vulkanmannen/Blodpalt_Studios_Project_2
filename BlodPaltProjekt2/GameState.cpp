@@ -1,9 +1,8 @@
 #include "GameState.h"
-#include "Manager.h"
+#include "EntityManager.h"
 #include "Super.h"
 #include "InGameMenu.h"
-#include "ImageManager.h"
-#include "Man.h"
+#include "ResourceHandler.h"
 #include <SFML\Window\Keyboard.hpp>
 
 
@@ -22,11 +21,18 @@ void GameState::update(Super &r_super)
 	{
 		r_super.getStateManager().pushState(new InGameMenu());
 	}
+
+
+
+	//EntityManager::getInstance()->update();
 }
 
 void GameState::draw(Super &r_super) 
 {
 
+
+
+	//EntityManager::getInstance()->render();
 }
 
 void GameState::init()
