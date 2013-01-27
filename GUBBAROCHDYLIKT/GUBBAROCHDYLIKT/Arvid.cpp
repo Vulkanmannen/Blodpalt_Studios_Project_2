@@ -4,23 +4,23 @@
 #include "Flower.h"
 #include "EntityManager.h"
 
-static const float	MAXRUNSPEED		= 6;
-static const float	MAXJUMPSPEED	= 16;
+static const float	MAXRUNSPEED		= 8;
+static const float	MAXJUMPSPEED	= 18;
 static const int	JUMPTIME		= 30;
 static const float	MINFALLSPEED	= 0.1;
 static const float	MAXFALLSPEED	= 20;
 
 Arvid::Arvid(sf::Vector2f &position):
 	//mIdleLeftAnimation	("", 0, 0),
-	mIdleRightAnimation ("arvid_idle_placehold.png", 0, 1),
-	mRunLeftAnimation	("arvid_sprint_left.png", 24, 16),
-	mRunRightAnimation	("arvid_sprint_right.png", 24, 16),
-	mJumpRightAnimation	("arvid_jump_right.png", 24, 9),
-	mJumpLeftAnimation	("arvid_jump_left.png", 24, 9),
-	mAirborneLeftAnimation("arvid_airborne_left.png", 0, 1),
-	mAirborneRightAnimation("arvid_airborne_right.png", 0, 1),
+	mIdleRightAnimation ("arvid_idle_right.png", 0, 1),
+	mRunLeftAnimation	("arvid_sprint_left2.png", 24, 16),
+	mRunRightAnimation	("arvid_sprint_right2.png", 24, 16),
+	mJumpRightAnimation	("arvid_jump_right2.png", 24, 9),
+	mJumpLeftAnimation	("arvid_jump_left2.png", 24, 9),
+	mAirborneLeftAnimation("arvid_airborne_left2.png", 0, 1),
+	mAirborneRightAnimation("arvid_airborne_right2.png", 0, 1),
 	mMovementSpeed(0,1),
-	mRunSpeed(3),
+	mRunSpeed(1),
 	mJumping(false),
 	mFalling(true),
 	mJumpDecrease(0.6),
@@ -32,8 +32,10 @@ Arvid::Arvid(sf::Vector2f &position):
 	mLoveBarRect(0, 0, 700, 48),
 	mCountdown(300)
 { 
+	mLayer = FRONT;
 	mEntityKind = ARVID;
 	setPosition(position);
+
 	mLoveBarTexture.loadFromFile("Hud_meter_love_bar.png");
 	mLoveTexture.loadFromFile("HUD_meter_love_heart.png");
 	mLoveBarSprite.setTexture(mLoveBarTexture);
@@ -41,7 +43,9 @@ Arvid::Arvid(sf::Vector2f &position):
 	mLoveBarSprite.setTextureRect(static_cast<sf::IntRect>(mLoveBarRect));
 	mLoveBarSprite.setPosition(80, 0);
 	mLoveSprite.setPosition(0, 0);
-	mHitBox = sf::FloatRect(position + sf::Vector2f(113, 32), sf::Vector2f(96, 285));
+
+	mHitBox = sf::FloatRect(position + sf::Vector2f(45, 8), sf::Vector2f(52, 152));
+
 	mCurrentAnimation = &mIdleRightAnimation;
 }
 
@@ -88,9 +92,10 @@ void Arvid::render(sf::RenderWindow &window)
 	mAirborneLeftAnimation.setPosition(getPosition());
 	mAirborneRightAnimation.setPosition(getPosition());
 
-	mCurrentAnimation->setPosition(getPosition()- sf::Vector2f(113, 32));
 	mLoveSprite.setPosition(sf::Vector2f(window.getView().getCenter().x - 940, window.getView().getCenter().y - 520));
 	mLoveBarSprite.setPosition(sf::Vector2f(window.getView().getCenter().x - 860, window.getView().getCenter().y - 500));
+
+	mCurrentAnimation->setPosition(getPosition()- sf::Vector2f(45, 8));
 
 	window.draw(mCurrentAnimation->getSprite());
 	window.draw(mLoveBarSprite);

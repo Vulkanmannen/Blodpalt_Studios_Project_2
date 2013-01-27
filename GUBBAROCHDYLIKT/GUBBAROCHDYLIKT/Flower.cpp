@@ -34,6 +34,7 @@ Flower::Flower(sf::Vector2f position, GrowthDir dir) :
 	mHitBox.left = position.x;
 		//Assign entity kind
 	mEntityKind = Entity::FLOWER;
+	mLayer = MIDDLE;
 		//The new flower is active
 	mIsActive = true;
 		//Set it's sprite's stats

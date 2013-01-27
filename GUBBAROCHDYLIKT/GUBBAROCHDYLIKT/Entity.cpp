@@ -23,6 +23,11 @@ Entity::EntityKind Entity::getEntityKind()const
 	return mEntityKind;
 }
 
+Entity::EntityLayer Entity::getEntityLayer()const
+{
+	return mLayer;
+}
+
 void Entity::setPosition(sf::Vector2f &position)
 {
 	mHitBox.left = position.x;

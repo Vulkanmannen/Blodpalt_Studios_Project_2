@@ -7,8 +7,7 @@ class Entity
 {
 public:
 	enum EntityKind {ARVID, FLOWER, NORMALBLOCK, ENEMY, PUSHABLEBLOCK};
-	enum EntityLayer {FRONT, MIDDLE, BACK};
-
+	enum EntityLayer {BACK, MIDDLE, FRONT};
 
 	Entity();
 	virtual ~Entity();
@@ -20,6 +19,7 @@ public:
 	bool			isActive()const;
 	sf::Vector2f	getPosition()const;
 	EntityKind		getEntityKind()const;
+	EntityLayer		getEntityLayer()const;
 	sf::FloatRect	getHitBox()const;
 
 	// setfunktioner
@@ -29,6 +29,7 @@ public:
 protected:
 	sf::FloatRect	mHitBox;
 	EntityKind		mEntityKind;
+	EntityLayer		mLayer;
 	bool			mIsActive;
 };
 
