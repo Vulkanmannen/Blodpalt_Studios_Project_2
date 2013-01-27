@@ -5,6 +5,8 @@
 #include "NormalBlock.h"
 #include "MovingBlock.h"
 #include "Arvid.h"
+#include "Enemy.h"
+#include "PushableBlock.h"
 
 LoadingState::LoadingState(std::string filePath) :
 	mLevelImage( ResourceHandler::getInstance()->loadImage(filePath) )
@@ -55,6 +57,16 @@ void LoadingState::loadLevel()
 			else if(color == sf::Color(255, 255, 0, 255))
 			{
 				mEntityManager->addDynamicEntity(new Arvid(position));
+			}
+
+			else if(color == sf::Color(0, 255, 255, 255))
+			{
+				mEntityManager->addDynamicEntity(new Enemy(position, EnemyType::ALEX));
+			}
+
+			else if(color == sf::Color(255, 0, 255, 255))
+			{
+				mEntityManager->addEntity(new PushableBlock(position));
 			}
 		}
 	}

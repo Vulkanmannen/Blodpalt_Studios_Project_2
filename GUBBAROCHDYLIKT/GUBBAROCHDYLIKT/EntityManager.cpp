@@ -89,20 +89,30 @@ void EntityManager::checkCollisions()
 	{
 		for(EntityVector::size_type j = 0; j < mEntityVector.size(); ++j)
 		{
-			if(mDynamicEntityVector[i]->getEntityKind() == Entity::ARVID && mEntityVector[j]->getEntityKind() != Entity::ARVID)
-			{
-				ifEntitiesColliding(mDynamicEntityVector[i], mEntityVector[j]);
-			}
+			ifEntitiesColliding(mDynamicEntityVector[i], mEntityVector[j]);
 		}
 	}
 }
 
 void EntityManager::ifEntitiesColliding(Entity *e1, Entity *e2)
 {
-	sf::FloatRect result;
-
-	if(e1->getHitBox().intersects(e2->getHitBox(), result))
+	if(e1 != e2)
 	{
-		e1->onCollision(e2,result);
+		Entity::EntityKind e1Kind = e1->getEntityKind();
+		Entity::EntityKind e2Kind = e2->getEntityKind();
+
+		if(	e1Kind == Entity::ARVID ||
+			e1Kind == Entity::ENEMY && e2Kind == Entity::FLOWER || e1Kind == Entity::ENEMY && e2Kind == Entity::NORMALBLOCK ||
+			e1Kind == Entity::FLOWER && e2Kind == Entity::NORMALBLOCK || 
+			e1Kind == Entity::PUSHABLEBLOCK && e2Kind == Entity::FLOWER
+			)
+		{
+			sf::FloatRect result;
+
+			if(e1->getHitBox().intersects(e2->getHitBox(), result))
+			{
+				e1->onCollision(e2,result);
+			}
+		}
 	}
 }

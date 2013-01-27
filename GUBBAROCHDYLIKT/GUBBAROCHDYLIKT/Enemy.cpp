@@ -3,18 +3,24 @@
 
 Enemy::Enemy(sf::Vector2f &position, EnemyType type) :
 	mMovementSpeed(3),
-	mEnemyType(type) 
+	mEnemyType(type),
+	mRightAnimation("alex_walk_right.png", 24, 24),
+	mLeftAnimation("alex_walk_left.png", 24, 24)
 {
-	if(mEnemyType == ALEX)
+	/*if(mEnemyType == ALEX)
 	{
 		mRightAnimation = Animation("alex_walk_right.png", 0, 1);
 		mLeftAnimation	= Animation("alex_walk_left.png", 0, 1);
-	}
-	else if(mEnemyType == JON)
+	}*/
+	/*else if(mEnemyType == JON)
 	{
 		mRightAnimation = Animation("", 0, 1);
 		mLeftAnimation = Animation("", 0, 1);
-	}
+	}*/
+	mLayer = MIDDLE; 
+	mEntityKind = ENEMY;
+
+	mHitBox = sf::FloatRect(position + sf::Vector2f(0, 55), sf::Vector2f(110, 130));
 	mCurrentAnimation = &mRightAnimation;
 }
 
@@ -29,6 +35,7 @@ void Enemy::update()
 
 	mRightAnimation.setPosition(getPosition());
 	mLeftAnimation.setPosition(getPosition());
+	mCurrentAnimation->setPosition(getPosition() - sf::Vector2f(125, 80));
 
 	if(mWalkLeft)
 	{

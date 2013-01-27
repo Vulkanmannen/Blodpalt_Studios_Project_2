@@ -6,7 +6,7 @@ NormalBlock::NormalBlock(sf::Vector2f position)
 {
 	setPosition(position);
 	mEntityKind = EntityKind::NORMALBLOCK;
-	mTexture.loadFromFile("BLOCK.png");
+	mTexture.loadFromFile("block_grass_jord.png");
 	mSprite.setTexture(mTexture);
 	mSprite.setPosition(position);
 	mHitBox = sf::FloatRect(position, sf::Vector2f(64, 64));

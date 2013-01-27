@@ -5,7 +5,7 @@ PushableBlock::PushableBlock(sf::Vector2f &position)
 {
 	setPosition(position);
 	mEntityKind = EntityKind::PUSHABLEBLOCK;
-	mTexture.loadFromFile("BLOCK.png");
+	mTexture.loadFromFile("block_jord.png");
 	mSprite.setTexture(mTexture);
 	mSprite.setPosition(position);
 	mHitBox = sf::FloatRect(position, sf::Vector2f(64, 64));
@@ -34,14 +34,14 @@ void PushableBlock::onCollision(Entity *e, sf::FloatRect &result)
 	{
 		if(result.height > result.width)
 		{
-			if(result.left > mHitBox.left)
-			{
-				mHitBox.left -= result.width;
-			}
-			else
-			{
-				mHitBox.left += result.width;
-			}
+			//if(result.left > mHitBox.left)
+			//{
+			//	mHitBox.left -= result.width;
+			//}
+			//else
+			//{
+			//	mHitBox.left += result.width;
+			//}
 		}
 		else
 		{

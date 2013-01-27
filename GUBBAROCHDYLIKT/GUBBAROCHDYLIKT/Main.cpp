@@ -19,9 +19,6 @@ int main()
 	
 	LoadingState loadState("MAPJEVEL.png");
 	loadState.loadLevel();
-<<<<<<< HEAD
-	while (window.isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-=======
 	
 	sf::Texture backgroundTexture;
 	backgroundTexture.loadFromFile("bgb.png");
@@ -41,8 +38,7 @@ int main()
 
 	sf::Vector2f lastPosition = EntityManager::getInstance()->getArvid()->getPosition();
 
-	while (window.isOpen())
->>>>>>> 9c60d2f17b30a320dcb49d1976bb02270153bec6
+	while (window.isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
 		sf::Vector2i mouse = sf::Mouse::getPosition();
         sf::Event event;

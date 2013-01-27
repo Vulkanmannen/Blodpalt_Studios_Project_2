@@ -101,9 +101,16 @@ void Flower::render(sf::RenderWindow &window)
 	//super->getWindow().draw();
 }
 
-void Flower::onCollision(Entity *e, sf::FloatRect &result){
-
-};
+void Flower::onCollision(Entity *e, sf::FloatRect &result)
+{
+	if(e->getEntityKind() == NORMALBLOCK)
+	{
+		if(e->getHitBox().top < mHitBox.top)
+		{
+			mIsGrowing = false;
+		}
+	}
+}
 
 void Flower::grow()
 {

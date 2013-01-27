@@ -59,6 +59,16 @@ void Arvid::update()
 	falling();
 	updateHUD();
 	
+	if(mCurrentAnimation == &mJumpLeftAnimation && mCurrentAnimation->endOfAnimation())
+	{
+		mCurrentAnimation->resetFrameCount();
+		mCurrentAnimation = &mAirborneLeftAnimation;
+	}
+	else if(mCurrentAnimation == &mJumpRightAnimation && mCurrentAnimation->endOfAnimation())
+	{
+		mCurrentAnimation->resetFrameCount();
+		mCurrentAnimation = &mAirborneRightAnimation;
+	}
 
 	plantFlower();
 
@@ -68,16 +78,7 @@ void Arvid::update()
 		jump();
 		fall();
 
-		if(mCurrentAnimation == &mJumpLeftAnimation && mCurrentAnimation->endOfAnimation())
-		{
-			mCurrentAnimation->resetFrameCount();
-			mCurrentAnimation = &mAirborneLeftAnimation;
-		}
-		else if(mCurrentAnimation == &mJumpRightAnimation && mCurrentAnimation->endOfAnimation())
-		{
-			mCurrentAnimation->resetFrameCount();
-			mCurrentAnimation = &mAirborneRightAnimation;
-		}
+		
 	}
 	mCurrentAnimation->update();
 }
@@ -106,7 +107,7 @@ void Arvid::onCollision(Entity *e, sf::FloatRect &result)
 {
 	EntityKind kind = e->getEntityKind();
 
-	if(kind == NORMALBLOCK)
+	if(kind != FLOWER)
 		{
 		if(result.height > result.width)
 		{
@@ -146,7 +147,7 @@ void Arvid::onCollision(Entity *e, sf::FloatRect &result)
 	}
 	else if(kind == FLOWER)
 	{
-		if(mHitBox.top < e->getHitBox().top - 275)
+		if(mHitBox.top < e->getHitBox().top - 137 && !mJumping)
 		{
 			if(result.width > 10)
 			{
@@ -279,7 +280,7 @@ void Arvid::plantFlower()
 		mCountdown = 300;
 		if(mFlower == NULL)
 		{
-			mFlower = new Flower(getPosition() + sf::Vector2f(128, 240));
+			mFlower = new Flower(getPosition() + sf::Vector2f(128, 107));
 			EntityManager::getInstance()->addDynamicEntity(mFlower);
 		}
 
