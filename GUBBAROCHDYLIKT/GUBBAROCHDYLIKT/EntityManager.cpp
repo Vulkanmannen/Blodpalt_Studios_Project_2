@@ -46,6 +46,22 @@ Entity* EntityManager::getArvid()
 	}
 }
 
+bool EntityManager::lookForBlock(sf::Vector2f &position)
+{
+	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
+	{
+		if(mEntityVector[i]->getEntityKind() == Entity::NORMALBLOCK)
+		{
+			if(mEntityVector[i]->getHitBox().contains(position))
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+
 void EntityManager::update()
 {
 	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
@@ -72,13 +88,21 @@ void EntityManager::render(sf::RenderWindow &window)
 
 void EntityManager::deleteInactives()
 {
-	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
+	for(EntityVector::size_type i = 0; i < mDynamicEntityVector.size(); ++i)
 	{
-		if(!mEntityVector[i]->isActive())
+		if(!mDynamicEntityVector[i]->isActive())
 		{
-			delete mEntityVector[i];
-			mEntityVector[i] = mEntityVector.back();
-			mEntityVector.pop_back();
+			for(EntityVector::size_type j = 0; j < mEntityVector.size(); ++j)
+			{
+				if(mEntityVector[j] == mDynamicEntityVector[i])
+				{
+					mEntityVector[j] = mEntityVector.back();
+					mEntityVector.pop_back();
+				}
+			}
+			delete mDynamicEntityVector[i];
+			mDynamicEntityVector[i] = mEntityVector.back();
+			mDynamicEntityVector.pop_back();
 		}
 	}
 }
@@ -104,7 +128,7 @@ void EntityManager::ifEntitiesColliding(Entity *e1, Entity *e2)
 		if(	e1Kind == Entity::ARVID ||
 			e1Kind == Entity::ENEMY && e2Kind == Entity::FLOWER || e1Kind == Entity::ENEMY && e2Kind == Entity::NORMALBLOCK ||
 			e1Kind == Entity::FLOWER && e2Kind == Entity::NORMALBLOCK || 
-			e1Kind == Entity::PUSHABLEBLOCK && e2Kind == Entity::FLOWER
+			e1Kind == Entity::PUSHABLEBLOCK && e2Kind == Entity::FLOWER || e1Kind == Entity::PUSHABLEBLOCK && e2Kind == Entity::NORMALBLOCK || e1Kind == Entity::PUSHABLEBLOCK && e2Kind == Entity::PUSHABLEBLOCK
 			)
 		{
 			sf::FloatRect result;

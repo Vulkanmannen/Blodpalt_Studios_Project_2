@@ -10,9 +10,9 @@
 #include "Animation.h"
 #include "Entity.h"
 #include <memory>
+#include "Flower.h"
 
 class ResourceHandler;
-class Flower;
 
 class Arvid : public Entity
 {
@@ -34,11 +34,12 @@ private:
 	void fall();
 	void falling();
 
-	void plantFlower();
+	void plantFlower(Flower::GrowthDir g);
+	void flowerDirection();
 
 	void updateHUD();
 
-	//Animation mIdleLeftAnimation;
+	Animation mIdleLeftAnimation;
 	Animation mIdleRightAnimation;
 	Animation mRunLeftAnimation;
 	Animation mRunRightAnimation;
@@ -46,6 +47,8 @@ private:
 	Animation mJumpLeftAnimation;
 	Animation mAirborneLeftAnimation;
 	Animation mAirborneRightAnimation;
+	Animation mWaterRightAnimation;
+	Animation mWaterLeftAnimation;
 
 	Animation* mCurrentAnimation;
 

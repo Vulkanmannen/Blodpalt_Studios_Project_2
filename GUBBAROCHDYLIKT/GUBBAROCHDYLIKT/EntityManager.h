@@ -25,6 +25,8 @@ public:
 
 	Entity* getArvid();
 
+	bool lookForBlock(sf::Vector2f &position);
+
 private:
 	EntityManager();
 	EntityManager(const EntityManager&);

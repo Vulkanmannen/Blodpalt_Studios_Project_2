@@ -19,5 +19,6 @@ public:
 private:
 	sf::Texture mTexture;
 	sf::Sprite mSprite;
+	int mNormalCount;
 };
 

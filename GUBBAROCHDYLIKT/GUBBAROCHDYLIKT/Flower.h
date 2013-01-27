@@ -15,7 +15,7 @@ public:
 	enum GrowthDir{
 		HORIZONTAL, VERTICAL
 	};
-	Flower(sf::Vector2f position, GrowthDir dir = VERTICAL);
+	Flower(sf::Vector2f position, bool growleft, GrowthDir dir = VERTICAL);
 	~Flower();
 
 	void update();
@@ -25,9 +25,12 @@ public:
 	void grow();
 	void isNotGrowing();
 
+	GrowthDir getGrowthDir();
+
 private:
 	unsigned int mLifeTime; //Lifetime, in frames.
 	bool mIsGrowing;
+	bool mGrowLeft;
 	GrowthDir mGrowthDir;
 
 	Animation mFlowerAnimation;

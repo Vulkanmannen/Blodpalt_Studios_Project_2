@@ -9,10 +9,11 @@
 
 
 
-Flower::Flower(sf::Vector2f position, GrowthDir dir) :
+Flower::Flower(sf::Vector2f position, bool growLeft, GrowthDir dir) :
 	mFlowerTex ( new sf::Texture() ),
 	mFlowerAnimation("BLOMMA.png", 100, 32),
-	mIdleAnimation("idle_sprite.png", 0, 1)
+	mIdleAnimation("idle_sprite.png", 0, 1),
+	mGrowLeft(growLeft)
 {	
 	mLifeTime = 300;
 	mIsGrowing = true;
@@ -27,27 +28,41 @@ Flower::Flower(sf::Vector2f position, GrowthDir dir) :
 		mHitBox.height = 48;
 	}
 	else{
-		mHitBox.width = 0;
-		mHitBox.height = 48;
+		mHitBox.width = 30;
+		mHitBox.height = 128;
 	}
 	mHitBox.top = position.y;
 	mHitBox.left = position.x;
 		//Assign entity kind
 	mEntityKind = Entity::FLOWER;
-	mLayer = MIDDLE;
+	mLayer = BACK;
 		//The new flower is active
 	mIsActive = true;
-		//Set it's sprite's stats
-	mSprite.setTexture( *mFlowerTex );
-	mSprite.setPosition( position );
-	mSprite.setTextureRect( sf::IntRect(0,0,128,48) );
-	if( mGrowthDir == HORIZONTAL)
-		mSprite.rotate( 90 );
+
+
+	
 
 	
 	mCurrentAnimation = &mFlowerAnimation;
 	mCurrentAnimation->setPosition(position);
 	mCurrentAnimation->getSprite().setTextureRect(sf::IntRect(0, 0, 128, 48));
+
+	if( mGrowthDir == HORIZONTAL)
+	{
+		if(mGrowLeft)
+		{
+			mFlowerAnimation.getSprite().rotate( 270 );
+			mIdleAnimation.getSprite().rotate ( 270 );
+			mFlowerAnimation.setPosition(mFlowerAnimation.getSprite().getPosition() + sf::Vector2f(0, 128));
+			mIdleAnimation.setPosition(mIdleAnimation.getSprite().getPosition() + sf::Vector2f(0, 128));
+
+		}
+		else
+		{
+			mFlowerAnimation.getSprite().rotate( 90 );
+			mIdleAnimation.getSprite().rotate ( 90 );
+		}
+	}
 }
 
 
@@ -57,11 +72,11 @@ Flower::~Flower()
 
 void Flower::update()
 {	
-	mIdleAnimation.setPosition(getPosition());
+	//mIdleAnimation.setPosition(getPosition());
 
 	mCurrentAnimation->update();
 	
-	mCurrentAnimation->setPosition(getPosition());
+	//mCurrentAnimation->setPosition(getPosition());
 
 	if(mCurrentAnimation == &mFlowerAnimation && mCurrentAnimation->endOfAnimation() == true)
 	{
@@ -71,21 +86,6 @@ void Flower::update()
 		mCurrentAnimation->getSprite().setTextureRect(rect);
 		
 	}
-	//static Entity* flower2 = new Flower(sf::Vector2f(600,800), HORIZONTAL);
-	//static Entity* flower = new Flower(sf::Vector2f( 800,600 ), VERTICAL );
-	//static bool once = true;
-
-
-	//if(once){
-	//	EntityManager::getInstance()->addEntity( flower );
-	//	EntityManager::getInstance()->addEntity( flower2 );
-	//	once = !once;
-
-	//}
-	//if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) ){
-	//	dynamic_cast<Flower*>(flower)->grow();
-	//	dynamic_cast<Flower*>(flower2)->grow();
-	//}
 
 	if( !mIsGrowing )
 		--mLifeTime;
@@ -105,9 +105,27 @@ void Flower::onCollision(Entity *e, sf::FloatRect &result)
 {
 	if(e->getEntityKind() == NORMALBLOCK)
 	{
-		if(e->getHitBox().top < mHitBox.top)
+		if(result.height > result.width)
 		{
-			mIsGrowing = false;
+			if(result.left > mHitBox.left)
+			{
+				mHitBox.left -= result.width;
+				mIsGrowing = false;
+			}
+			else
+			{
+				mHitBox.left += result.width;
+				mIsGrowing = false;
+			}
+		}
+		else
+		{
+			if(e->getHitBox().top < mHitBox.top)
+			{
+				mHitBox.top += result.height;
+				mIsGrowing = false;
+			}
+			
 		}
 	}
 }
@@ -118,7 +136,8 @@ void Flower::grow()
 	{
 		mIsGrowing = false;
 	}
-	if( mIsGrowing )
+
+	if( mIsGrowing && mGrowthDir == VERTICAL )
 	{
 		auto tempRect = mCurrentAnimation->getSprite().getTextureRect();
 		tempRect.height += 3;
@@ -126,21 +145,40 @@ void Flower::grow()
 		mCurrentAnimation->getSprite().setPosition( mCurrentAnimation->getSprite().getPosition().x, mCurrentAnimation->getSprite().getPosition().y - 3);
 		mHitBox.top = mCurrentAnimation->getSprite().getPosition().y;
 	}
-	else if(mGrowthDir == HORIZONTAL)
+
+	else if(mIsGrowing && mGrowthDir == HORIZONTAL)
 	{
 		if( abs(mHitBox.width) <= 48 )
 		{
 			mHitBox.width -1;
 		}
-		auto tempRect = mSprite.getTextureRect();
-		tempRect.top += 1;
-		tempRect.height -= 1;
-		mSprite.setTextureRect( tempRect );
-		mHitBox.left = tempRect.left - mHitBox.width; 
 
+		if(mGrowLeft)
+		{
+			auto tempRect = mCurrentAnimation->getSprite().getTextureRect();
+			tempRect.height += 3;
+			mCurrentAnimation->getSprite().setTextureRect( tempRect );
+			mCurrentAnimation->setPosition( sf::Vector2f(mCurrentAnimation->getSprite().getPosition().x - 3, mCurrentAnimation->getSprite().getPosition().y));
+			mIdleAnimation.setPosition(sf::Vector2f(mCurrentAnimation->getSprite().getPosition().x - 3, mCurrentAnimation->getSprite().getPosition().y));
+			mHitBox.left = mCurrentAnimation->getSprite().getPosition().x;
+		}
+		else
+		{
+			auto tempRect = mCurrentAnimation->getSprite().getTextureRect();
+			tempRect.height += 3;
+			mCurrentAnimation->getSprite().setTextureRect( tempRect );
+			mCurrentAnimation->setPosition( sf::Vector2f(mCurrentAnimation->getSprite().getPosition().x + 3, mCurrentAnimation->getSprite().getPosition().y));
+			mIdleAnimation.setPosition(sf::Vector2f(mCurrentAnimation->getSprite().getPosition().x + 3, mCurrentAnimation->getSprite().getPosition().y));
+			mHitBox.left = mCurrentAnimation->getSprite().getPosition().x;
+		}
 	}
 }
 
 void Flower::isNotGrowing(){
 	mIsGrowing = false;
+}
+
+Flower::GrowthDir Flower::getGrowthDir()
+{
+	return mGrowthDir;
 }

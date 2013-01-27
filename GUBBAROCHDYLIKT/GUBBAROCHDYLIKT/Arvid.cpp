@@ -11,7 +11,7 @@ static const float	MINFALLSPEED	= 0.1;
 static const float	MAXFALLSPEED	= 20;
 
 Arvid::Arvid(sf::Vector2f &position):
-	//mIdleLeftAnimation	("", 0, 0),
+	mIdleLeftAnimation	("arvid_idle_left.png", 0, 1),
 	mIdleRightAnimation ("arvid_idle_right.png", 0, 1),
 	mRunLeftAnimation	("arvid_sprint_left2.png", 24, 16),
 	mRunRightAnimation	("arvid_sprint_right2.png", 24, 16),
@@ -19,6 +19,8 @@ Arvid::Arvid(sf::Vector2f &position):
 	mJumpLeftAnimation	("arvid_jump_left2.png", 24, 9),
 	mAirborneLeftAnimation("arvid_airborne_left2.png", 0, 1),
 	mAirborneRightAnimation("arvid_airborne_right2.png", 0, 1),
+	mWaterRightAnimation("arvid_vatten.png", 24, 16),
+	mWaterLeftAnimation("arvid_vatten_left.png", 24, 16),
 	mMovementSpeed(0,1),
 	mRunSpeed(1),
 	mJumping(false),
@@ -26,11 +28,12 @@ Arvid::Arvid(sf::Vector2f &position):
 	mJumpDecrease(0.6),
 	mFallAcc(0.8),
 	mJumpTime(0),
-	mLove(100),
+	mLove(10000),
 	mFlower(NULL),
 	mPlanting(false),
 	mLoveBarRect(0, 0, 700, 48),
-	mCountdown(300)
+	mCountdown(300),
+	mRunLeft(false)
 { 
 	mLayer = FRONT;
 	mEntityKind = ARVID;
@@ -70,33 +73,34 @@ void Arvid::update()
 		mCurrentAnimation = &mAirborneRightAnimation;
 	}
 
-	plantFlower();
+	flowerDirection();
 
 	if(!mPlanting)
 	{
 		walk();
 		jump();
-		fall();
-
-		
+		fall();	
 	}
 	mCurrentAnimation->update();
 }
 
 void Arvid::render(sf::RenderWindow &window)
 {
-	mIdleRightAnimation.setPosition(getPosition());
-	mRunLeftAnimation.setPosition(getPosition());
-	mRunRightAnimation.setPosition(getPosition());
-	mJumpRightAnimation.setPosition(getPosition());
-	mJumpLeftAnimation.setPosition(getPosition());
-	mAirborneLeftAnimation.setPosition(getPosition());
-	mAirborneRightAnimation.setPosition(getPosition());
+	mIdleRightAnimation.setPosition(getPosition()- sf::Vector2f(45, 8));
+	mIdleLeftAnimation.setPosition(getPosition()- sf::Vector2f(45, 8));
+	mRunLeftAnimation.setPosition(getPosition()- sf::Vector2f(45, 8));
+	mRunRightAnimation.setPosition(getPosition()- sf::Vector2f(45, 8));
+	mJumpRightAnimation.setPosition(getPosition()- sf::Vector2f(45, 8));
+	mJumpLeftAnimation.setPosition(getPosition()- sf::Vector2f(45, 8));
+	mAirborneLeftAnimation.setPosition(getPosition()- sf::Vector2f(45, 8));
+	mAirborneRightAnimation.setPosition(getPosition()- sf::Vector2f(45, 8));
+	mWaterRightAnimation.setPosition(getPosition() - sf::Vector2f(90, 8));
+	mWaterLeftAnimation.setPosition(getPosition() - sf::Vector2f(90, 8));
 
 	mLoveSprite.setPosition(sf::Vector2f(window.getView().getCenter().x - 940, window.getView().getCenter().y - 520));
 	mLoveBarSprite.setPosition(sf::Vector2f(window.getView().getCenter().x - 860, window.getView().getCenter().y - 500));
 
-	mCurrentAnimation->setPosition(getPosition()- sf::Vector2f(45, 8));
+	//mCurrentAnimation->setPosition(getPosition()- sf::Vector2f(45, 8));
 
 	window.draw(mCurrentAnimation->getSprite());
 	window.draw(mLoveBarSprite);
@@ -147,17 +151,22 @@ void Arvid::onCollision(Entity *e, sf::FloatRect &result)
 	}
 	else if(kind == FLOWER)
 	{
-		if(mHitBox.top < e->getHitBox().top - 137 && !mJumping)
-		{
-			if(result.width > 10)
-			{
-				mHitBox.top -= result.height;
+		Flower* flower = static_cast<Flower*>(e);
 
-				if(mFalling)
+		if(flower->getGrowthDir() == Flower::VERTICAL)
+		{
+			if(mHitBox.top < e->getHitBox().top - 137 && !mJumping)
+			{
+				if(result.width > 10)
 				{
-					mMovementSpeed.y = MINFALLSPEED;
+					mHitBox.top -= result.height;
+
+					if(mFalling)
+					{
+						mMovementSpeed.y = MINFALLSPEED;
+					}
+					mFalling = false;
 				}
-				mFalling = false;
 			}
 		}
 	}
@@ -185,8 +194,18 @@ void Arvid::move()
 		}
 		else
 		{
-			mCurrentAnimation->resetFrameCount();
-			mCurrentAnimation = &mIdleRightAnimation;
+			if(!mPlanting)
+			{
+				mCurrentAnimation->resetFrameCount();
+				if(mRunLeft)
+				{
+					mCurrentAnimation = &mIdleLeftAnimation;
+				}
+				else
+				{
+					mCurrentAnimation = &mIdleRightAnimation;
+				}
+			}
 		}
 	}
 
@@ -271,16 +290,42 @@ void Arvid::falling()
 	}
 }
 
-void Arvid::plantFlower()
+void Arvid::plantFlower(Flower::GrowthDir g)
 {
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !mJumping && !mFalling && mLove >= 0)
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !mJumping && !mFalling && mLove > 0)
 	{
 		mPlanting = true;
 		mLove -= 0.5;
 		mCountdown = 300;
 		if(mFlower == NULL)
 		{
-			mFlower = new Flower(getPosition() + sf::Vector2f(128, 107));
+			if(g == Flower::HORIZONTAL)
+			{
+				if(mRunLeft)
+				{
+					mFlower = new Flower(getPosition() + sf::Vector2f(-55, 107), mRunLeft, g);
+					mCurrentAnimation = &mWaterLeftAnimation;
+				}
+				else
+				{
+					mFlower = new Flower(getPosition() + sf::Vector2f(mHitBox.width + 50, 107), mRunLeft, g);
+					mCurrentAnimation = &mWaterRightAnimation;
+				}
+			}
+			else
+			{
+				if(mRunLeft)
+				{
+					mFlower = new Flower(getPosition() + sf::Vector2f(-128, 107), mRunLeft, g);
+					mCurrentAnimation = &mWaterLeftAnimation;
+				}
+				else
+				{
+					mFlower = new Flower(getPosition() + sf::Vector2f(mHitBox.width, 107), mRunLeft, g);
+					mCurrentAnimation = &mWaterRightAnimation;
+				}
+			}
+			
 			EntityManager::getInstance()->addDynamicEntity(mFlower);
 		}
 
@@ -289,10 +334,12 @@ void Arvid::plantFlower()
 	else
 	{
 		mPlanting = false;
+
 		if(mLove <= 100 && mCountdown <= 0)
 		{
 			mLove += 0.25;
 		}
+
 		if(mFlower != NULL)
 		{
 			mFlower->isNotGrowing();
@@ -302,6 +349,35 @@ void Arvid::plantFlower()
 			--mCountdown;
 
 		mFlower = NULL;
+	}
+}
+
+void Arvid::flowerDirection()
+{
+	if(EntityManager::getInstance()->lookForBlock(sf::Vector2f(mHitBox.left + mHitBox.width / 2, mHitBox.top + mHitBox.height + 10)))
+	{
+		if(mRunLeft)
+		{
+			if(!EntityManager::getInstance()->lookForBlock(sf::Vector2f(mHitBox.left - 45 , mHitBox.top + mHitBox.height + 10)))
+			{
+				plantFlower(Flower::HORIZONTAL);
+			}
+			else
+			{
+				plantFlower(Flower::VERTICAL);
+			}
+		}
+		else
+		{
+			if(!EntityManager::getInstance()->lookForBlock(sf::Vector2f(mHitBox.left + mHitBox.width + 50, mHitBox.top + mHitBox.height + 10)))
+			{
+				plantFlower(Flower::HORIZONTAL);
+			}
+			else
+			{
+				plantFlower(Flower::VERTICAL);
+			}
+		}
 	}
 }
 

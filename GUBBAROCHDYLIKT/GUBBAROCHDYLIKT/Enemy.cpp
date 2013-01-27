@@ -57,7 +57,7 @@ void Enemy::onCollision(Entity *e, sf::FloatRect &result)
 {
 	EntityKind kind = e->getEntityKind();
 
-	if(kind == NORMALBLOCK)
+	if(kind == NORMALBLOCK || kind == FLOWER)
 	{
 		changeDirection();
 	}

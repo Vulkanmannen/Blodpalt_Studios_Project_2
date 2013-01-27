@@ -13,11 +13,13 @@ int main()
 
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Garden Gnome");
 
+	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
+	
 	sf::View view;
 	view.setSize(1980, 1080);
 	
-	LoadingState loadState("MAPJEVEL.png");
+	LoadingState loadState("Level_4.png");
 	loadState.loadLevel();
 	
 	sf::Texture backgroundTexture;
@@ -35,6 +37,13 @@ int main()
 			backgroundVector.push_back(sprite);
 		}
 	}
+
+	sf::Clock clock;
+	float updateRate = 20;
+	float elapsd = 0;
+
+
+
 
 	sf::Vector2f lastPosition = EntityManager::getInstance()->getArvid()->getPosition();
 
@@ -63,6 +72,11 @@ int main()
 				backgroundVector[i]->setPosition(backgroundVector[i]->getPosition() + sf::Vector2f(move.x * 0.5, move.y *0.5));
 			}
 			lastPosition = EntityManager::getInstance()->getArvid()->getPosition();
+		}
+
+		for(elapsd += clock.restart().asMilliseconds(); elapsd > updateRate; elapsd -= updateRate)
+		{
+
 		}
 
 		EntityManager::getInstance()->update();
