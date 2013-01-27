@@ -30,6 +30,7 @@ Arvid::Arvid(sf::Vector2f &position):
 	mFlower(NULL),
 	mPlanting(false)
 { 
+	mLayer = FRONT;
 	mEntityKind = ARVID;
 	setPosition(position);
 	mTexture.loadFromFile("GUBBJEVEL.png");

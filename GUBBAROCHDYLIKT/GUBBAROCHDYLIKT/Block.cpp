@@ -3,4 +3,5 @@
 Block::Block()
 {
 	mIsActive = true;
+	mLayer = MIDDLE;
 }

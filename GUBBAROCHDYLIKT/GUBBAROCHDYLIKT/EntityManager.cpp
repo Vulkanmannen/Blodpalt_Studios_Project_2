@@ -58,9 +58,15 @@ void EntityManager::update()
 
 void EntityManager::render(sf::RenderWindow &window)
 {
-	for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
+	for(int h = 0; h < 3; ++h)
 	{
-		mEntityVector[i]->render(window);
+		for(EntityVector::size_type i = 0; i < mEntityVector.size(); ++i)
+		{
+			if(mEntityVector[i]->getEntityLayer() == h)
+			{
+				mEntityVector[i]->render(window);
+			}
+		}
 	}
 }
 
