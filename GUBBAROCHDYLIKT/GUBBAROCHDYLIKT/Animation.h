@@ -16,6 +16,8 @@ public:
 	void update();
 	void setPosition(const sf::Vector2f &position);
 	const sf::Sprite& getSprite() const;
+	sf::Sprite& getSprite();
+	
 	bool endOfAnimation();
 
 	void resetFrameCount();

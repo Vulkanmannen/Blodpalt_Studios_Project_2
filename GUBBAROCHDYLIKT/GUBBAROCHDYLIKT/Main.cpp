@@ -11,13 +11,13 @@ int main()
 {
 	EntityManager::getInstance()->addEntity( new Flower( sf::Vector2f(0,0), Flower::VERTICAL) );
 
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Garden Gnome");
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Garden Gnome", sf::Style::Fullscreen);
 	window.setFramerateLimit(60);
 	sf::View view;
 	view.setSize(1980, 1080);
 	LoadingState loadState("MAPJEVEL.png");
 	loadState.loadLevel();
-    while (window.isOpen())
+	while (window.isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
 		sf::Vector2i mouse = sf::Mouse::getPosition();
         sf::Event event;
@@ -26,7 +26,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-		window.clear(sf::Color(255, 0, 0, 255));
+		window.clear(sf::Color(0, 0, 255, 255));
 
 		EntityManager::getInstance()->update();
 		EntityManager::getInstance()->render(window);

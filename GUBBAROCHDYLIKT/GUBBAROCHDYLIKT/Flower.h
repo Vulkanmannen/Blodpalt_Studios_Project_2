@@ -5,6 +5,7 @@
 #include <SFML\System\Clock.hpp>
 #include <SFML\System\Vector2.hpp>
 #include <SFML\Graphics\Sprite.hpp>
+#include "Animation.h"
 #include <memory>
 
 class Animation;
@@ -29,7 +30,10 @@ private:
 	bool mIsGrowing;
 	GrowthDir mGrowthDir;
 
-	Animation *mDecomposeAnimation;
+	Animation mFlowerAnimation;
+	Animation mIdleAnimation;
+
+	Animation *mCurrentAnimation;
 	Animation *mFlowerStemAnimation;
 	Animation *mFlowerHeadAnimation;
 

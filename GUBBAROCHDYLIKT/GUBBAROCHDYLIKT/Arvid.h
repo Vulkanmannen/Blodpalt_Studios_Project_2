@@ -3,6 +3,7 @@
 
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\Graphics\Sprite.hpp>
+#include <SFML\Graphics\Rect.hpp>
 #include <SFML\System\Vector2.hpp>
 #include <SFML\System\Clock.hpp>
 
@@ -35,7 +36,7 @@ private:
 
 	void plantFlower();
 
-
+	void updateHUD();
 
 	//Animation mIdleLeftAnimation;
 	Animation mIdleRightAnimation;
@@ -55,15 +56,20 @@ private:
 	float			mJumpDecrease;
 	float			mFallAcc;
 	int				mJumpTime;
-	int				mLove;
+	float			mLove;
 	bool			mRunLeft;
 	bool			mPlanting;
+	int				mCountdown;
 
 	Flower* mFlower;
 
 	sf::Clock	mClock;
-	sf::Texture	mTexture;
-	sf::Sprite	mSprite;
+	sf::Texture	mLoveBarTexture;
+	sf::Sprite	mLoveBarSprite;
+	sf::FloatRect	mLoveBarRect;
+
+	sf::Texture	mLoveTexture;
+	sf::Sprite	mLoveSprite;
 };
 
 #endif

@@ -10,9 +10,11 @@
 
 
 Flower::Flower(sf::Vector2f position, GrowthDir dir) :
-	mFlowerTex ( new sf::Texture() )
+	mFlowerTex ( new sf::Texture() ),
+	mFlowerAnimation("BLOMMA.png", 100, 32),
+	mIdleAnimation("idle_sprite.png", 0, 1)
 {	
-	mLifeTime = 600;
+	mLifeTime = 300;
 	mIsGrowing = true;
 	mGrowthDir = dir;
 		//
@@ -40,6 +42,11 @@ Flower::Flower(sf::Vector2f position, GrowthDir dir) :
 	mSprite.setTextureRect( sf::IntRect(0,0,128,48) );
 	if( mGrowthDir == HORIZONTAL)
 		mSprite.rotate( 90 );
+
+	
+	mCurrentAnimation = &mFlowerAnimation;
+	mCurrentAnimation->setPosition(position);
+	mCurrentAnimation->getSprite().setTextureRect(sf::IntRect(0, 0, 128, 48));
 }
 
 
@@ -49,7 +56,20 @@ Flower::~Flower()
 
 void Flower::update()
 {	
+	mIdleAnimation.setPosition(getPosition());
 
+	mCurrentAnimation->update();
+	
+	mCurrentAnimation->setPosition(getPosition());
+
+	if(mCurrentAnimation == &mFlowerAnimation && mCurrentAnimation->endOfAnimation() == true)
+	{
+		sf::IntRect rect = mCurrentAnimation->getSprite().getTextureRect();
+		mCurrentAnimation = &mIdleAnimation;
+
+		mCurrentAnimation->getSprite().setTextureRect(rect);
+		
+	}
 	//static Entity* flower2 = new Flower(sf::Vector2f(600,800), HORIZONTAL);
 	//static Entity* flower = new Flower(sf::Vector2f( 800,600 ), VERTICAL );
 	//static bool once = true;
@@ -75,7 +95,7 @@ void Flower::update()
 
 void Flower::render(sf::RenderWindow &window)
 {
-		window.draw( mSprite );
+	window.draw( mCurrentAnimation->getSprite() );
 	//Super *super = Super::getInstance();
 	//super->getWindow().draw();
 }
@@ -86,17 +106,17 @@ void Flower::onCollision(Entity *e, sf::FloatRect &result){
 
 void Flower::grow()
 {
-	if( abs(mSprite.getTextureRect().height) >= 640 )
+	if( abs(mCurrentAnimation->getSprite().getTextureRect().height) >= 640 )
 	{
 		mIsGrowing = false;
 	}
 	if( mIsGrowing )
 	{
-		auto tempRect = mSprite.getTextureRect();
+		auto tempRect = mCurrentAnimation->getSprite().getTextureRect();
 		tempRect.height += 3;
-		mSprite.setTextureRect( tempRect );
-		mSprite.setPosition( mSprite.getPosition().x, mSprite.getPosition().y - 3);
-		mHitBox.top = mSprite.getPosition().y;
+		mCurrentAnimation->getSprite().setTextureRect( tempRect );
+		mCurrentAnimation->getSprite().setPosition( mCurrentAnimation->getSprite().getPosition().x, mCurrentAnimation->getSprite().getPosition().y - 3);
+		mHitBox.top = mCurrentAnimation->getSprite().getPosition().y;
 	}
 	else if(mGrowthDir == HORIZONTAL)
 	{

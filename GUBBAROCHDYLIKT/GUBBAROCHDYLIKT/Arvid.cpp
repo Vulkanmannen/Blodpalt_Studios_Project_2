@@ -28,13 +28,19 @@ Arvid::Arvid(sf::Vector2f &position):
 	mJumpTime(0),
 	mLove(100),
 	mFlower(NULL),
-	mPlanting(false)
+	mPlanting(false),
+	mLoveBarRect(0, 0, 700, 48),
+	mCountdown(300)
 { 
 	mEntityKind = ARVID;
 	setPosition(position);
-	mTexture.loadFromFile("GUBBJEVEL.png");
-	mSprite.setTexture(mTexture);
-	mSprite.setPosition(position);
+	mLoveBarTexture.loadFromFile("Hud_meter_love_bar.png");
+	mLoveTexture.loadFromFile("HUD_meter_love_heart.png");
+	mLoveBarSprite.setTexture(mLoveBarTexture);
+	mLoveSprite.setTexture(mLoveTexture);
+	mLoveBarSprite.setTextureRect(static_cast<sf::IntRect>(mLoveBarRect));
+	mLoveBarSprite.setPosition(80, 0);
+	mLoveSprite.setPosition(0, 0);
 	mHitBox = sf::FloatRect(position + sf::Vector2f(113, 32), sf::Vector2f(96, 285));
 	mCurrentAnimation = &mIdleRightAnimation;
 }
@@ -47,7 +53,8 @@ void Arvid::update()
 	move();
 	jumping();
 	falling();
-	mCurrentAnimation->update();
+	updateHUD();
+	
 
 	plantFlower();
 
@@ -68,6 +75,7 @@ void Arvid::update()
 			mCurrentAnimation = &mAirborneRightAnimation;
 		}
 	}
+	mCurrentAnimation->update();
 }
 
 void Arvid::render(sf::RenderWindow &window)
@@ -81,7 +89,12 @@ void Arvid::render(sf::RenderWindow &window)
 	mAirborneRightAnimation.setPosition(getPosition());
 
 	mCurrentAnimation->setPosition(getPosition()- sf::Vector2f(113, 32));
+	mLoveSprite.setPosition(sf::Vector2f(window.getView().getCenter().x - 940, window.getView().getCenter().y - 520));
+	mLoveBarSprite.setPosition(sf::Vector2f(window.getView().getCenter().x - 860, window.getView().getCenter().y - 500));
+
 	window.draw(mCurrentAnimation->getSprite());
+	window.draw(mLoveBarSprite);
+	window.draw(mLoveSprite);
 }
 
 void Arvid::onCollision(Entity *e, sf::FloatRect &result)
@@ -199,12 +212,12 @@ void Arvid::jump()
 		
 		if(mRunLeft == true)
 		{
-			mCurrentAnimation->resetFrameCount();
+			//mCurrentAnimation->resetFrameCount();
 			mCurrentAnimation = &mJumpLeftAnimation;
 		}
 		else
 		{
-			mCurrentAnimation->resetFrameCount();
+			//mCurrentAnimation->resetFrameCount();
 			mCurrentAnimation = &mJumpRightAnimation;
 		}
 	}
@@ -254,10 +267,11 @@ void Arvid::falling()
 
 void Arvid::plantFlower()
 {
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !mJumping && !mFalling)
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !mJumping && !mFalling && mLove >= 0)
 	{
 		mPlanting = true;
-
+		mLove -= 0.5;
+		mCountdown = 300;
 		if(mFlower == NULL)
 		{
 			mFlower = new Flower(getPosition() + sf::Vector2f(128, 240));
@@ -269,12 +283,27 @@ void Arvid::plantFlower()
 	else
 	{
 		mPlanting = false;
-
+		if(mLove <= 100 && mCountdown <= 0)
+		{
+			mLove += 0.25;
+		}
 		if(mFlower != NULL)
 		{
 			mFlower->isNotGrowing();
 		}
+
+		if(mCountdown > 0)
+			--mCountdown;
+
 		mFlower = NULL;
 	}
 }
 
+void Arvid::updateHUD()
+{
+	float x = mLove * 7;
+
+	mLoveBarRect.left = mLoveBarRect.width - x;
+
+	mLoveBarSprite.setTextureRect(static_cast<sf::IntRect>(mLoveBarRect));
+}

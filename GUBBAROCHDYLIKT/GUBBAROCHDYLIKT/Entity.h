@@ -6,7 +6,7 @@
 class Entity
 {
 public:
-	enum EntityKind {ARVID, FLOWER, NORMALBLOCK, ENEMY, MOVINGBLOCK};
+	enum EntityKind {ARVID, FLOWER, NORMALBLOCK, ENEMY, PUSHABLEBLOCK};
 	enum EntityLayer {FRONT, MIDDLE, BACK};
 
 
